@@ -1,0 +1,362 @@
+{
+  "common": {
+    "home": "Startseite",
+    "catalog": "Katalog",
+    "calculator": "Rechner",
+    "pricing": "Preise",
+    "donation": "Spenden",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "myAccount": "Mein Konto",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "view": "Ansehen",
+    "search": "Suchen",
+    "filter": "Filter",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "submit": "Absenden",
+    "required": "Erforderlich",
+    "optional": "Optional",
+    "all": "Alle",
+    "none": "Keine",
+    "yes": "Ja",
+    "no": "Nein",
+    "close": "Schließen",
+    "created": "Erstellt am",
+    "confirmDelete": "Sind Sie sicher, dass Sie dieses Element löschen möchten?",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "accessDenied": "Zugriff verweigert. Sie haben nicht die erforderlichen Berechtigungen, um auf diese Seite zuzugreifen.",
+    "seconds": "Sekunden",
+    "minutes": "Minuten",
+    "add": "Hinzufügen",
+    "noResults": "Keine Ergebnisse gefunden",
+    "flour": "Mehl",
+    "tip": "Tipp",
+    "reset": "Zurücksetzen",
+    "refresh": "Aktualisieren"
+  },
+  "navigation": {
+    "catalogs": "Kataloge",
+    "publicCatalog": "Öffentlicher Katalog",
+    "enterpriseCatalog": "Enterprise-Katalog",
+    "privateCatalog": "Privater Katalog",
+    "demoCatalog": "Demo-Katalog",
+    "needDonation": "Spende benötigt"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "email": "Email",
+    "password": "Passwort",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto? Registrieren",
+    "hasAccount": "Bereits ein Konto? Anmelden",
+    "resetPassword": "Passwort zurücksetzen",
+    "emailRequired": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "passwordRequired": "Das Passwort muss mindestens 6 Zeichen enthalten",
+    "loginError": "Falsche E-Mail oder Passwort",
+    "emailExistsError": "Ein Konto mit dieser E-Mail existiert bereits",
+    "genericError": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "resetEmailSent": "Eine E-Mail zum Zurücksetzen wurde an Ihre Adresse gesendet. Bitte prüfen Sie auch Ihren Spam-Ordner.",
+    "resetEmailError": "E-Mail zum Zurücksetzen konnte nicht gesendet werden",
+    "accountCreated": "Konto erfolgreich erstellt! Sie können sich jetzt anmelden.",
+    "checkSpam": "Wenn Sie die E-Mail nicht erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder kontaktieren Sie den Support.",
+    "resetRateLimit": "Bitte warten Sie {{seconds}} Sekunden, bevor Sie eine weitere Zurücksetzungs-E-Mail anfordern.",
+    "emailRateLimitError": "Zu viele Versuche. Bitte versuchen Sie es später erneut.",
+    "emailNotFoundError": "Kein Konto mit dieser E-Mail-Adresse gefunden.",
+    "serviceConfigError": "Konfigurationsfehler im Dienst. Bitte kontaktieren Sie den Administrator.",
+    "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in {{minutes}} Minuten erneut.",
+    "nextAttemptIn": "Nächster Versuch möglich in {{seconds}} Sekunden.",
+    "newPassword": "Neues Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+    "passwordResetSuccess": "Ihr Passwort wurde erfolgreich zurückgesetzt!",
+    "passwordResetSuccessLogin": "Passwort erfolgreich zurückgesetzt. Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
+    "setNewPassword": "Neues Passwort festlegen",
+    "backToLogin": "Zurück zur Anmeldung",
+    "invalidResetLink": "Ungültiger oder abgelaufener Reset-Link. Bitte fordern Sie eine neue Passwort-Zurücksetzung an."
+  },
+  "landing": {
+    "hero": {
+      "title": "Erstellen Sie perfekte Köder-Mischungen",
+      "subtitle": "Optimieren Sie Ihre Boilies mit unserem Mehlkatalog und intelligentem Mischungsrechner",
+      "exploreCatalog": "Katalog erkunden",
+      "calculateMix": "Mischung berechnen",
+      "imgsrc": "https://photos.bwcarpe.com:8443/PreparingBait.png",
+      "imgalt": "Köder zum Karpfenangeln vorbereiten"
+    },
+    "donation": {
+      "title": "Unterstützen Sie die Entwicklung",
+      "description": "Diese Anwendung befindet sich in aktiver Entwicklung und stellt meine einzige Einnahmequelle dar. Ihre Unterstützung hilft, den Service kostenlos zu halten und neue Funktionen hinzuzufügen.",
+      "button": "Spenden",
+      "benefits": "Alle Spender erhalten exklusive Vorteile in der finalen Version"
+    },
+    "features": {
+      "catalog": {
+        "title": "Vollständiger Katalog",
+        "description": "Greifen Sie auf unsere detaillierte Datenbank von Mehlen mit ihren Nährstoff- und mechanischen Eigenschaften zu."
+      },
+      "calculator": {
+        "title": "Intelligenter Rechner",
+        "description": "Erstellen und analysieren Sie Ihre Mischungen mit unserem Rechner, der Ihnen Echtzeit-Statistiken liefert."
+      },
+      "personal": {
+        "title": "Persönlicher Bereich",
+        "description": "Speichern Sie Ihre Lieblingsrezepte und teilen Sie Ihre Kreationen mit der Community."
+      }
+    },
+    "howItWorks": {
+      "title": "Wie funktioniert es?",
+      "step1": {
+        "title": "Wählen Sie Ihre Mehle",
+        "description": "Durchsuchen Sie unseren Katalog und wählen Sie die Mehle aus, die Sie interessieren."
+      },
+      "step2": {
+        "title": "Berechnen Sie Ihre Mischung",
+        "description": "Verwenden Sie unseren Rechner, um die Proportionen Ihrer Mischung zu optimieren."
+      },
+      "step3": {
+        "title": "Analysieren und anpassen",
+        "description": "Visualisieren Sie die Eigenschaften Ihrer Mischung und verfeinern Sie sie nach Ihren Bedürfnissen."
+      }
+    },
+    "cta": {
+      "title": "Bereit, Ihre perfekte Mischung zu erstellen?",
+      "description": "Treten Sie unserer Community bei und beginnen Sie, optimierte Mischungen für Ihre Angelausflüge zu erstellen.",
+      "button": "Konto erstellen"
+    }
+  },
+  "catalog": {
+    "title": "Mehlkatalog",
+    "demoVersion": "Demo-Version",
+    "searchPlaceholder": "Nach einem Mehl suchen...",
+    "category": "Kategorie",
+    "details": "Details anzeigen",
+    "nutritionalValues": "Nährwerte",
+    "proteins": "Proteine",
+    "lipids": "Lipide",
+    "carbs": "Kohlenhydrate",
+    "properties": "Eigenschaften",
+    "proteinProfile": "Proteinprofil",
+    "proteinQuality": "Proteinqualität",
+    "proteinComposition": "Proteinzusammensetzung",
+    "enzymaticComposition": "Enzymatische Zusammensetzung",
+    "antiNutrients": "Anti-Nährstoffe",
+    "mechanicalProperties": "Mechanische Eigenschaften",
+    "binding": "Bindung",
+    "stickiness": "Klebrigkeit",
+    "waterAbsorption": "Wasseraufnahme",
+    "solubility": "Löslichkeit",
+    "usage": "Anwendungstipps",
+    "recommendedRatio": "Empfohlenes Verhältnis",
+    "tips": "Tipps",
+    "demoMessage": "Sie verwenden derzeit die Demo-Version des Katalogs. Um auf den vollständigen Katalog zuzugreifen, wechseln Sie zu einem höheren Abonnement.",
+    "upgradeLink": "zu einem höheren Abonnement wechseln",
+    "allCategories": "Alle Kategorien",
+    "selectCategory": "Kategorie auswählen",
+    "pricePerKg": "Preis pro kg",
+    "flour": "Mehl",
+    "tip": "Tipp"
+  },
+  "calculator": {
+    "title": "Mischungsrechner",
+    "editMix": "Mischung bearbeiten",
+    "viewMix": "Mischungsdetails",
+    "saveMix": "Mischung speichern",
+    "updateMix": "Aktualisieren",
+    "loginToSave": "Anmelden zum Speichern",
+    "selectCatalog": "Katalog auswählen",
+    "publicCatalog": "Öffentlicher Katalog",
+    "enterpriseCatalog": "Enterprise-Katalog",
+    "privateCatalog": "Privater Katalog",
+    "addFlour": "Mehl hinzufügen",
+    "demoFlours": "Demo-Katalog",
+    "selectFlour": "Mehl auswählen",
+    "total": "Gesamt",
+    "mustBe100": "muss 100% ergeben",
+    "mixComposition": "Mischungszusammensetzung",
+    "nutritionalValues": "Nährwerte",
+    "enzymaticComposition": "Enzymatische Zusammensetzung",
+    "antiNutrients": "Anti-Nährstoffe",
+    "savedMixes": {
+      "empty": "Keine gespeicherten Mischungen",
+      "title": "Gespeicherte Mischungen"
+    },
+    "createNewMix": "Neue Mischung erstellen",
+    "saveMixModal": {
+      "title": "Mischung speichern",
+      "editTitle": "Mischung bearbeiten",
+      "mixName": "Name der Mischung",
+      "mixNamePlaceholder": "z.B.: Sommer-Protein-Mix",
+      "description": "Beschreibung",
+      "descriptionPlaceholder": "Beschreibung Ihrer Mischung (optional)",
+      "tags": "Tags",
+      "addTag": "Hinzufügen",
+      "addTagPlaceholder": "Tag hinzufügen"
+    },
+    "mixName": "Name der Mischung",
+    "mixDescription": "Beschreibung",
+    "mixTags": "Tags",
+    "addTag": "Tag hinzufügen",
+    "mixUpdated": "Mischung aktualisiert",
+    "mixSaved": "Mischung gespeichert",
+    "flourNotFound": "Mehl nicht gefunden",
+    "flourAlreadyAdded": "Mehl bereits hinzugefügt",
+    "solubility": "Löslichkeit",
+    "mechanicalProperties": "Mechanische Eigenschaften",
+    "demoMessage": "Sie verwenden derzeit die Demo-Version des Rechners. Um auf den vollständigen Katalog zuzugreifen, wechseln Sie zu einem höheren Abonnement.",
+    "mixCombiner": {
+      "title": "Mix-Kombinierer",
+      "description": "Kombinieren Sie mehrere gespeicherte Mischungen, um einen neuen optimierten Mix zu erstellen",
+      "savedMixes": "Gespeicherte Mischungen",
+      "selectMixes": "Wählen Sie Mischungen zum Kombinieren",
+      "combine": "Mischungen kombinieren",
+      "combinedMix": "Kombinierte Mischung",
+      "selectMixesPrompt": "Wählen Sie gespeicherte Mischungen aus und klicken Sie auf 'Mischungen kombinieren', um einen neuen Mix zu erstellen",
+      "sendToN8n": "Mischungen an N8N senden",
+      "sent": "Gesendet!",
+      "selectBetween2And4": "Wählen Sie zwischen 2 und 4 Mischungen aus.",
+      "noMixesSelected": "Noch keine Mischungen ausgewählt.",
+      "aboutN8nIntegration": "Über die N8N-Integration",
+      "n8nDescription": "Mit dieser Funktion können Sie die IDs ausgewählter Mischungen zur weiteren Verarbeitung und Analyse an einen N8N-Workflow senden.",
+      "response": "Antwortdetails"
+    }
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie Ihren Plan",
+    "description": "Lösungen für alle Bedürfnisse, vom leidenschaftlichen Amateur bis zum anspruchsvollen Profi",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "savingsLabel": "Sparen Sie bis zu 17%",
+    "recommended": "EMPFOHLEN",
+    "free": {
+      "name": "Kostenlos",
+      "price": "Kostenlos",
+      "features": [
+        "Zugang zum Demo-Katalog",
+        "Mix-Rechner: Nur zum Testen der Funktionalität. Keine echten Werte für alles.",
+        "Mix-Speicherung möglich",
+        "Kein Support"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "features": [
+        "Öffentlicher Katalog mit vereinfachten Details",
+        "Einfacher Mix-Rechner",
+        "Nährwertanalysen ohne enzymatische Zusammensetzung",
+        "Antinährstoffwerte, definiert auf Grundlage der Verteilung nach Typ: Lektine, Tannine, Saponine, Phytinsäure und Trypsininhibitoren. Gesamt 100 %",
+        "Funktionale Unterstützung"
+      ]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "features": [
+        "Öffentlicher Katalog mit vereinfachten Details + Unternehmenskatalog + Privat mit erweiterten Details",
+        "Data Access API: Enterprise Tools --> Table Analyzer: Import und Export von Mehlen im CSV-Dateiformat",
+        "Angepasstes Dashboard",
+        "Engagierter Support rund um die Uhr von 10:00 bis 12:00 Uhr und von 14:00 bis 18:00 Uhr",
+        "Individuelle Schulung",
+        "Frühzeitiger Zugang zu neuen Funktionen"
+      ]
+    },
+    "billing": {
+      "monthly": "Monatliche Abrechnung",
+      "yearly": "Jährliche Abrechnung",
+      "discount": "(-{percentage}%)"
+    },
+    "choosePlan": "Diesen Plan wählen",
+    "loginToSubscribe": "Anmelden zum Abonnieren",
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": "Kann ich jederzeit den Plan wechseln?",
+      "a1": "Ja, Sie können Ihren Plan jederzeit upgraden oder downgraden. Die Änderungen werden mit der nächsten Abrechnungsperiode wirksam.",
+      "q2": "Gibt es eine Mindestvertragslaufzeit?",
+      "a2": "Nein, alle unsere Pläne sind ohne Vertragsbindung. Sie können jederzeit kündigen.",
+      "q3": "Wie funktioniert die Abrechnung?",
+      "a3": "Die Abrechnung erfolgt {billingInterval} und automatisch. Sie erhalten bei jeder Verlängerung eine Rechnung per E-Mail.",
+      "q4": "Was passiert, wenn ich mein Abonnement kündige?",
+      "a4": "Sie behalten den Zugang zu allen Funktionen bis zum Ende der laufenden Periode. Danach wird Ihr Konto automatisch auf die kostenlose Version zurückgesetzt."
+    }
+  },
+  "donation": {
+    "title": "Spende",
+    "readingTime": "Lesezeit: 2 Minuten",
+    "paragraph1": "Damit diese Anwendung funktioniert, muss ich Zeit und Geld investieren. Ich arbeite etwa 50 bis 100 Stunden pro Woche daran,",
+    "paragraph2": "und ich gebe viel Geld für Software aus, insbesondere für den Kauf zertifizierter Listen der verschiedenen Zutaten, die eine Boilie-Mischung ausmachen.",
+    "paragraph3": "Leider haben die meisten Angelunternehmen die Politik, nicht mit Softwareentwicklern zusammenzuarbeiten. Deshalb zahle ich für alles extra. Ich habe keine Sponsoren und bin offen für potenzielle Vorschläge.",
+    "paragraph4": "Ich möchte mit dem Unternehmen ROD OLIVER zusammenarbeiten: https://www.rodoliver.com/, das auf die Entwicklung von Karpfenködern spezialisiert ist. Bisher wurde keine Zusammenarbeit besprochen. Im Moment ist es nur eine Hoffnung.",
+    "warningBox": "Ihre Spende trägt zur Nachhaltigkeit dieser Anwendung bei. Sie stellt derzeit meine einzige Einnahmequelle dar. 🚧 Anwendung in Entwicklung 🚧: Ich kann die Entwicklung nicht mehr fortsetzen; meine eigenen Finanzen reichen nicht mehr aus. Ich bin derzeit arbeitslos. Jeder, der gespendet hat, wird von der Endversion der Anwendung profitieren. Diese Informationen müssen noch festgelegt werden.",
+    "infoBox": "Zur Information: Abonnements sind derzeit verfügbar und kostenlos, ebenso wie die Registrierung.",
+    "donateButton": "Mit PayPal spenden / Donate with PayPal",
+    "developerInfo": "App-Entwickler:",
+    "developerName": "Bruno Wendling",
+    "thanks": "Vielen Dank für das Lesen und Ihr Verständnis❤"
+  },
+  "blog": {
+    "title": "Blog",
+    "viewBlog": "Blog anzeigen",
+    "backToList": "Zurück zur Artikelliste",
+    "searchPlaceholder": "Nach einem Artikel suchen...",
+    "allCategories": "Alle Kategorien",
+    "readMore": "Weiterlesen",
+    "share": "Teilen",
+    "save": "Speichern",
+    "comments": "Kommentare",
+    "writeComment": "Kommentar schreiben...",
+    "loginToComment": "Anmelden zum Kommentieren",
+    "submitComment": "Veröffentlichen",
+    "noComments": "Noch keine Kommentare. Seien Sie der Erste, der kommentiert!",
+    "noSearchResults": "Keine Ergebnisse für \"{term}\"",
+    "noPosts": "Derzeit sind keine Artikel verfügbar",
+    "accessDenied": "Zugriff Eingeschränkt",
+    "proPlanRequired": "Dieser Artikel ist nur für Pro- und Enterprise-Abonnenten verfügbar. Bitte aktualisieren Sie Ihr Abonnement, um auf diesen Inhalt zuzugreifen.",
+    "enterprisePlanRequired": "Dieser Artikel ist nur für Enterprise-Abonnenten verfügbar. Bitte aktualisieren Sie Ihr Abonnement, um auf diesen Inhalt zuzugreifen.",
+    "upgradeSubscription": "Abonnement upgraden",
+    "categories": {
+      "perfectBait": "Der perfekte Köder",
+      "mixDesign": "Mix-Design",
+      "calculator": "Rechner",
+      "subscriptions": "Abonnements"
+    },
+    "admin": {
+      "title": "Blog-Verwaltung",
+      "newPost": "Neuer Artikel",
+      "editPost": "Artikel bearbeiten",
+      "title": "Titel",
+      "excerpt": "Auszug",
+      "content": "Inhalt",
+      "category": "Kategorie",
+      "tags": "Tags",
+      "tagsPlaceholder": "Durch Kommas getrennt (z.B.: sommer, proteine, boilies)",
+      "imageUrl": "Bild-URL",
+      "date": "Datum",
+      "stats": "Statistiken",
+      "noPosts": "Keine Artikel verfügbar",
+      "htmlSupported": "HTML wird für die Formatierung unterstützt"
+    }
+  },
+  "textWindow": {
+    "PetiteExplicationTitle": "Kleine Erklärung",
+    "PetiteExplicationContent": "Diese Anwendung wurde entwickelt, um Ihnen bei der Erstellung optimierter Ködermischungen für das Karpfenangeln zu helfen. Durchsuchen Sie unseren Mehlkatalog, verwenden Sie unseren Rechner, um Ihre Mischungen zu erstellen, und speichern Sie Ihre Lieblingsrezepte.",
+    "antinutriensTitle": "Allgemeine Empfehlungen (Karpfenköder-Rezeptur)",
+    "antinutriensContent": "Antinährstoff Empfohlener Grenzwert (%) in einer Mischung \t\tHinweise\nPhytinsäure \t\t\t\t≤ 0,4 %. \t\t\t\t\t\tDarüber hinaus beginnt es, die Aufnahme von Mineralien (Ca, Zn, Fe usw.) zu stören.\n\t\t\t\t\t\t\t\t\t\t\tTeilweise neutralisiert durch Phytase oder Fermentation.\n\nTrypsininhibitoren \t\t\t≤ 0,1 % \t\t\t\t\t\tverringern die Effizienz der Proteinverdauung\n\t\t\t\t\t\t\t\t\t\t\tStört die Proteinverdauung, insbesondere bei jungen Karpfen.\n\nLektine \t\t\t\t\t≤ 0,05 %. \t\t\t\t\t\tKann bei höheren Dosen Darmentzündungen verursachen.\n\t\t\t\t\t\t\t\t\t\t\tKann die Darmschleimhaut verändern. Hitzeempfindlich.\n\nTannine \t\t\t\t\t≤ 0,5 % \t\t\t\t\t\tTolerierbar, wenn der Köder für eine kurze Anköderungsphase vorgesehen ist\n\t\t\t\t\t\t\t\t\t\t\tWirkt antioxidativ bei niedriger Dosierung, verringert aber die Verdaulichkeit.\n\nSaponine \t\t\t\t\t≤ 0,1 %. \t\t\t\t\t\tIm Übermaß können sie die Darmschleimhaut reizen.\n\t\t\t\t\t\t\t\t\t\t\tMögliche Reizung. Stimulierendes Potenzial bei sehr niedrigen Dosen.\n\nGesamt-Antinährstoffe \t\t✅ ≤ 1,5 % \t\t\t\t\t\tder Mischung (empfohlener Zielwert) In der Praxis: idealerweise zwischen 0,8 und 1,2 %"
+  },
+  "bannersdefCFC": {
+    "bannerTitle": "Allgemeine Empfehlungen (Karpfenköder-Rezeptur)",
+    "bannerContent": "Antinährstoff Empfohlener Grenzwert (%) in einer Mischung \t\tHinweise\nPhytinsäure \t\t\t\t≤ 0,4 %. \t\t\t\t\t\tDarüber hinaus beginnt es, die Aufnahme von Mineralien (Ca, Zn, Fe usw.) zu stören.\n\t\t\t\t\t\t\t\t\t\t\tTeilweise neutralisiert durch Phytase oder Fermentation.\n\nTrypsininhibitoren \t\t\t≤ 0,1 % \t\t\t\t\t\tverringern die Effizienz der Proteinverdauung\n\t\t\t\t\t\t\t\t\t\t\tStört die Proteinverdauung, insbesondere bei jungen Karpfen.\n\nLektine \t\t\t\t\t≤ 0,05 %. \t\t\t\t\t\tKann bei höheren Dosen Darmentzündungen verursachen.\n\t\t\t\t\t\t\t\t\t\t\tKann die Darmschleimhaut verändern. Hitzeempfindlich.\n\nTannine \t\t\t\t\t≤ 0,5 % \t\t\t\t\t\tTolerierbar, wenn der Köder für eine kurze Anköderungsphase vorgesehen ist\n\t\t\t\t\t\t\t\t\t\t\tWirkt antioxidativ bei niedriger Dosierung, verringert aber die Verdaulichkeit.\n\nSaponine \t\t\t\t\t≤ 0,1 %. \t\t\t\t\t\tIm Übermaß können sie die Darmschleimhaut reizen.\n\t\t\t\t\t\t\t\t\t\t\tMögliche Reizung. Stimulierendes Potenzial bei sehr niedrigen Dosen.\n\nGesamt-Antinährstoffe \t\t✅ ≤ 1,5 % \t\t\t\t\t\tder Mischung (empfohlener Zielwert) In der Praxis: idealerweise zwischen 0,8 und 1,2 %"
+  },
+  "bannersdef": {
+    "bannerTitle": "Karpfenköder-Designer und -Verkäufer",
+    "bannerContent": "Professionelle Lösungen für das Karpfenangeln"
+  }
+}

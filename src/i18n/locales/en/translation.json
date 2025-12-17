@@ -1,0 +1,373 @@
+{
+  "common": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "calculator": "Calculator",
+    "pricing": "Pricing",
+    "donation": "Donate",
+    "login": "Login",
+    "logout": "Logout",
+    "myAccount": "My Account",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filters",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "required": "Required",
+    "optional": "Optional",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "created": "Created on",
+    "confirmDelete": "Are you sure you want to delete this item?",
+    "create": "Create",
+    "update": "Update",
+    "accessDenied": "Access denied. You don't have the necessary permissions to access this page.",
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "add": "Add",
+    "noResults": "No results found",
+    "flour": "Flour",
+    "tip": "Tip",
+    "reset": "Reset",
+    "refresh": "Refresh"
+  },
+  "navigation": {
+    "catalogs": "Catalogs",
+    "publicCatalog": "Public Catalog",
+    "enterpriseCatalog": "Enterprise Catalog",
+    "privateCatalog": "Private Catalog",
+    "demoCatalog": "Demo Catalog",
+    "needDonation": "Need donation"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "No account yet? Register",
+    "hasAccount": "Already have an account? Login",
+    "resetPassword": "Reset password",
+    "emailRequired": "Please enter a valid email address",
+    "passwordRequired": "Password must be at least 6 characters",
+    "loginError": "Incorrect email or password",
+    "emailExistsError": "An account already exists with this email",
+    "genericError": "An error occurred. Please try again.",
+    "resetEmailSent": "A reset email has been sent to your address. Please check your spam folder if you don't see it.",
+    "resetEmailError": "Unable to send reset email",
+    "accountCreated": "Account created successfully! You can now log in.",
+    "checkSpam": "If you don't receive the email, please check your spam folder or contact support.",
+    "resetRateLimit": "Please wait {{seconds}} seconds before requesting another reset email.",
+    "emailRateLimitError": "Too many attempts. Please try again later.",
+    "emailNotFoundError": "No account found with this email address.",
+    "serviceConfigError": "Service configuration error. Please contact the administrator.",
+    "tooManyAttempts": "Too many attempts. Please try again in {{minutes}} minutes.",
+    "nextAttemptIn": "Next attempt possible in {{seconds}} seconds.",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "passwordResetSuccess": "Your password has been reset successfully!",
+    "passwordResetSuccessLogin": "Password reset successful. You can now log in with your new password.",
+    "setNewPassword": "Set New Password",
+    "backToLogin": "Back to Login",
+    "invalidResetLink": "Invalid or expired reset link. Please request a new password reset."
+  },
+  "landing": {
+    "hero": {
+      "title": "Create Perfect Bait Mixes",
+      "subtitle": "Optimize your boilies with our flour catalog and intelligent mix calculator",
+      "exploreCatalog": "Explore Catalog",
+      "calculateMix": "Calculate Mix",
+      "imgsrc": "https://photos.bwcarpe.com:8443/PreparingBait.png",
+      "imgalt": "Preparing bait for carp fishing"
+    },
+    "donation": {
+      "title": "Support Development",
+      "description": "This application is in active development and represents my only source of income. Your support helps keep the service free and add new features.",
+      "button": "Donate",
+      "benefits": "All donors will receive exclusive benefits in the final version"
+    },
+    "features": {
+      "catalog": {
+        "title": "Complete Catalog",
+        "description": "Access our detailed database of flours with their nutritional and mechanical properties."
+      },
+      "calculator": {
+        "title": "Intelligent Calculator",
+        "description": "Create and analyze your mixes with our calculator that gives you real-time statistics."
+      },
+      "personal": {
+        "title": "Personal Space",
+        "description": "Save your favorite recipes and share your creations with the community."
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works?",
+      "step1": {
+        "title": "Choose your flours",
+        "description": "Browse our catalog and select the flours that interest you."
+      },
+      "step2": {
+        "title": "Calculate your mix",
+        "description": "Use our calculator to optimize the proportions of your mixture."
+      },
+      "step3": {
+        "title": "Analyze and adjust",
+        "description": "Visualize the properties of your mix and refine it according to your needs."
+      }
+    },
+    "cta": {
+      "title": "Ready to create your perfect mix?",
+      "description": "Join our community and start creating optimized mixes for your fishing sessions.",
+      "button": "Create an account"
+    }
+  },
+  "catalog": {
+    "title": "Flour Catalog",
+    "demoVersion": "Demo Version",
+    "searchPlaceholder": "Search for a flour...",
+    "category": "Category",
+    "details": "View details",
+    "nutritionalValues": "Nutritional Values",
+    "proteins": "Proteins",
+    "lipids": "Lipids",
+    "carbs": "Carbs",
+    "properties": "Properties",
+    "proteinProfile": "Protein Profile",
+    "proteinQuality": "Protein Quality",
+    "proteinComposition": "Protein Composition",
+    "enzymaticComposition": "Enzymatic Composition",
+    "antiNutrients": "Anti-nutrients",
+    "mechanicalProperties": "Mechanical Properties",
+    "binding": "Binding",
+    "stickiness": "Stickiness",
+    "waterAbsorption": "Water Absorption",
+    "solubility": "Solubility",
+    "usage": "Usage Tips",
+    "recommendedRatio": "Recommended Ratio",
+    "tips": "Tips",
+    "demoMessage": "You are currently using the demo version of the catalog. To access the full catalog, upgrade to a higher subscription.",
+    "upgradeLink": "upgrade to a higher subscription",
+    "allCategories": "All categories",
+    "selectCategory": "Select a category",
+    "pricePerKg": "Price per kg",
+    "flour": "Flour",
+    "tip": "Tip"
+  },
+  "calculator": {
+    "title": "Mix Calculator",
+    "editMix": "Edit Mix",
+    "viewMix": "Mix Details",
+    "saveMix": "Save Mix",
+    "updateMix": "Update",
+    "loginToSave": "Login to save",
+    "selectCatalog": "Select a catalog",
+    "publicCatalog": "Public Catalog",
+    "enterpriseCatalog": "Enterprise Catalog",
+    "privateCatalog": "Private Catalog",
+    "addFlour": "Add a flour",
+    "demoFlours": "Demo Catalog",
+    "selectFlour": "Select a flour",
+    "total": "Total",
+    "mustBe100": "must equal 100%",
+    "mixComposition": "Mix Composition",
+    "nutritionalValues": "Nutritional Values",
+    "enzymaticComposition": "Enzymatic Composition",
+    "antiNutrients": "Anti-nutrients",
+    "savedMixes": {
+      "empty": "No saved mixes",
+      "title": "Saved Mixes"
+    },
+    "createNewMix": "Create a new mix",
+    "saveMixModal": {
+      "title": "Save Mix",
+      "editTitle": "Edit Mix",
+      "mixName": "Mix name",
+      "mixNamePlaceholder": "Ex: Summer Protein Mix",
+      "description": "Description",
+      "descriptionPlaceholder": "Description of your mix (optional)",
+      "tags": "Tags",
+      "addTag": "Add",
+      "addTagPlaceholder": "Add a tag"
+    },
+    "mixName": "Mix name",
+    "mixDescription": "Description",
+    "mixTags": "Tags",
+    "addTag": "Add a tag",
+    "mixUpdated": "Mix updated successfully",
+    "mixSaved": "Mix saved successfully",
+    "flourNotFound": "Flour not found",
+    "flourAlreadyAdded": "Flour already added to mix",
+    "solubility": "Solubility",
+    "mechanicalProperties": "Mechanical Properties",
+    "demoMessage": "You are currently using the demo version of the calculator. To access the full catalog, upgrade to a higher subscription.",
+    "mixCombiner": {
+      "title": "Mix Combiner",
+      "description": "Combine multiple saved mixes to create a new optimized mix",
+      "savedMixes": "Saved Mixes",
+      "selectMixes": "Select mixes to combine",
+      "combine": "Combine Mixes",
+      "combinedMix": "Combined Mix",
+      "selectMixesPrompt": "Select saved mixes and click 'Combine Mixes' to create a new mix",
+      "sendToN8n": "Send Mixes to N8N",
+      "sent": "Sent!",
+      "selectBetween2And4": "Select between 2 and 4 mixes.",
+      "noMixesSelected": "No mixes selected yet.",
+      "aboutN8nIntegration": "About N8N Integration",
+      "n8nDescription": "This feature allows you to send selected mix IDs to an N8N workflow for further processing and analysis.",
+      "response": "Response Details"
+    }
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Choose your plan",
+    "description": "Solutions adapted to all needs, from the passionate amateur to the demanding professional",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "savingsLabel": "Save up to 17%",
+    "recommended": "RECOMMENDED",
+    "free": {
+      "name": "Free",
+      "price": "Free",
+      "features": [
+        "Access to the demo catalog",
+        "Mix Calculator: For functionality testing only. No actual values ​​for everything.",
+        "Mix saving possible",
+        "No Support"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "features": [
+        "Public Catalog with simplified details",
+        "Simple Mix Calculator",
+        "Nutritional analyses without Enzymatic Composition",
+        "Anti-nutrient values ​​defined on the basis of distribution by type: lectins, tannins, saponins, phytic acid and trypsin inhibitors. Total 100%",
+        "Functional support"
+      ]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "features": [
+        "Public Catalog with simplified details + Enterprise Catalog + Private with advanced details",
+        "Data Access API: Enterprise Tools --> Table Analyzer: Import and Export of flours in CSV file format",
+        "Custom dashboard",
+        "Dedicated support 24/6 from 10:00 AM to 12:00 PM and 2:00 PM to 6:00 PM",
+        "Custom training",
+        "Early access to new features"
+      ]
+    },
+    "billing": {
+      "monthly": "Monthly billing",
+      "yearly": "Annual billing",
+      "discount": "(-{percentage}%)"
+    },
+    "choosePlan": "Choose this plan",
+    "loginToSubscribe": "Login to subscribe",
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Can I change plans at any time?",
+      "a1": "Yes, you can upgrade or downgrade your plan at any time. Changes will take effect at the next billing period.",
+      "q2": "Is there a minimum commitment?",
+      "a2": "No, all our plans are without commitment. You can cancel at any time.",
+      "q3": "How does billing work?",
+      "a3": "Billing is {billingInterval} and automatic. You will receive an invoice by email with each renewal.",
+      "q4": "What happens if I cancel my subscription?",
+      "a4": "You retain access to all features until the end of the current period. Then your account will automatically revert to the free version."
+    }
+  },
+  "donation": {
+    "title": "Donation",
+    "readingTime": "Reading time: 2 minutes",
+    "paragraph1": "To make this application work, I need to invest time and money. I work about 50 to 100 hours a week on it,",
+    "paragraph2": "and I spend a lot of money on software, including purchasing certified lists of the different ingredients that make up a boilie mix.",
+    "paragraph3": "Unfortunately, most fishing companies have a policy of not collaborating with software developers. That's why I pay extra for everything. I have no sponsors and am open to any potential proposals.",
+    "paragraph4": "I would like to collaborate with the company ROD OLIVER: https://www.rodoliver.com/, which specializes in developing carp fishing baits. No collaboration has been discussed to date. For now, it's only a hope.",
+    "warningBox": "Your donation helps keep this application going. It currently represents my only source of income. 🚧 Application in development 🚧: I can no longer continue development; my own finances are no longer sufficient. I am currently unemployed. Anyone who has donated will benefit from the final version of the application. This information is yet to be determined.",
+    "infoBox": "For your information: Subscriptions are currently available and free, as is registration.",
+    "donateButton": "Faire un don avec PayPal / Donate with PayPal",
+    "developerInfo": "App Developer:",
+    "developerName": "Bruno Wendling",
+    "thanks": "Thank you for reading and understanding❤"
+  },
+  "blog": {
+    "title": "Blog",
+    "viewBlog": "View Blog",
+    "backToList": "Back to articles",
+    "searchPlaceholder": "Search for an article...",
+    "allCategories": "All categories",
+    "readMore": "Read more",
+    "share": "Share",
+    "save": "Save",
+    "comments": "Comments",
+    "writeComment": "Write a comment...",
+    "loginToComment": "Login to comment",
+    "submitComment": "Post",
+    "noComments": "No comments yet. Be the first to comment!",
+    "noSearchResults": "No results for \"{term}\"",
+    "noPosts": "No articles available at the moment",
+    "accessDenied": "Access Restricted",
+    "proPlanRequired": "This article is only available to Pro and Enterprise subscribers. Please upgrade your subscription to access this content.",
+    "enterprisePlanRequired": "This article is only available to Enterprise subscribers. Please upgrade your subscription to access this content.",
+    "upgradeSubscription": "Upgrade Subscription",
+    "categories": {
+      "perfectBait": "The Perfect Bait",
+      "mixDesign": "Mix Design",
+      "calculator": "Calculator",
+      "subscriptions": "Subscriptions"
+    },
+    "admin": {
+      "title": "Blog Management",
+      "newPost": "New Article",
+      "editPost": "Edit Article",
+      "title": "Title",
+      "excerpt": "Excerpt",
+      "content": "Content",
+      "category": "Category",
+      "tags": "Tags",
+      "tagsPlaceholder": "Separated by commas (e.g.: summer, proteins, boilies)",
+      "imageUrl": "Image URL",
+      "date": "Date",
+      "stats": "Statistics",
+      "noPosts": "No articles available",
+      "htmlSupported": "HTML is supported for formatting"
+    }
+  },
+  "footer": {
+    "about": "About",
+    "aboutText": "CarpBait Pro helps you create optimized bait mixes for carp fishing.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "contactText": "Have a question? Don't hesitate to contact us.",
+    "copyright": "© 2025 CarpBait Pro - All rights reserved"
+  },
+  "development": {
+    "banner": "🚧 Application under development 🚧"
+  },
+  "textWindow": {
+    "PetiteExplicationTitle": "Small Explanation",
+    "PetiteExplicationContent": "This application is designed to help you create optimized bait mixes for carp fishing. Browse our catalog of flours, use our calculator to create your mixes, and save your favorite recipes.",
+    "antinutriensTitle": "General recommendations (carp bait formulation)",
+    "antinutriensContent": "Anti-nutrient Recommended threshold (%) in a mix\tNotes\nPhytic acid\t≤ 0.4%.\tBeyond this level, it begins to disrupt mineral absorption (Ca, Zn, Fe, etc.).\n\t\t\tPartially neutralized by phytase or fermentation.\n\nTrypsin inhibitors\t≤ 0.1%.\tReduces the efficiency of protein digestion.\n\t\t\tDisrupts protein digestion, especially in young carp.\n\nLectins\t≤ 0.05%.\tCan cause intestinal inflammation at higher doses.\n\t\t\tCan damage the intestinal mucosa. Sensitive to heat.\n\nTannins\t≤ 0.5%.\tTolerable if the bait is intended for a short baiting phase.\n\t\t\tAntioxidant effect at low doses, but reduces digestibility.\n\nSaponins\t≤ 0.1%.\tIn excess, can irritate the intestinal mucosa.\n\t\t\tPossible irritation. Stimulant potential at very low doses.\n\nTotal anti-nutrients\t✅ ≤ 1.5%\tof the mix (recommended target value) In practice: ideally between 0.8 and 1.2%"
+  },
+  "bannersdefCFC": {
+    "bannerTitle": "Carp Food Concept",
+    "bannerContent": "Innovative solutions for carp nutrition"
+  },
+  "bannersdef": {
+    "bannerTitle": "Carp Bait Designer and Seller",
+    "bannerContent": "Professional solutions for carp fishing"
+  }
+}

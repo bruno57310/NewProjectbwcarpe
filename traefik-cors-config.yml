@@ -1,0 +1,33 @@
+# Configuration CORS pour Traefik + Supabase Self-hosted
+# Ajoutez ces labels à votre service Supabase dans docker-compose.yml
+
+version: '3.8'
+services:
+  supabase-kong:  # ou le nom de votre service Supabase
+    image: supabase/kong:latest
+    labels:
+      # Traefik routing
+      - "traefik.enable=true"
+      - "traefik.http.routers.supabase.rule=Host(`api.bwcarpe.com`)"
+      - "traefik.http.routers.supabase.tls=true"
+      - "traefik.http.routers.supabase.tls.certresolver=letsencrypt"
+      
+      # CORS Middleware
+      - "traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=https://localhost:5173,http://localhost:5173,https://127.0.0.1:5173,http://127.0.0.1:5173"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowheaders=Origin,X-Requested-With,Content-Type,Accept,Authorization,apikey,x-client-info"
+      - "traefik.http.middlewares.cors.headers.accesscontrolmaxage=86400"
+      - "traefik.http.middlewares.cors.headers.addvaryheader=true"
+      
+      # Apply CORS middleware
+      - "traefik.http.routers.supabase.middlewares=cors"
+      
+      # Service
+      - "traefik.http.services.supabase.loadbalancer.server.port=8000"
+    environment:
+      # Variables d'environnement Supabase
+      - KONG_DECLARATIVE_CONFIG=/var/lib/kong/kong.yml
+      - KONG_DNS_ORDER=LAST,A,CNAME
+      - KONG_PLUGINS=request-id,kong-offline-plugins,basic-auth,key-auth,cors
+      - KONG_NGINX_PROXY_PROXY_BUFFER_SIZE=160k
+      - KONG_NGINX_PROXY_PROXY_BUFFERS=64 160k

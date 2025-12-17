@@ -1,0 +1,261 @@
+#!/bin/bash
+
+echo "🔧 CORRECTION CORS SUPABASE SELF-HOSTED"
+echo "========================================"
+echo ""
+
+# Variables
+KONG_CONFIG="/root/supabase-1.24.09/docker/volumes/api/kong.yml"
+DOCKER_COMPOSE="/root/supabase-1.24.09/docker/docker-compose.yml"
+BACKUP_DATE=$(date +%Y%m%d-%H%M%S)
+
+echo "1️⃣ Backup du kong.yml actuel..."
+cp "$KONG_CONFIG" "/root/kong.yml.backup-$BACKUP_DATE"
+echo "   ✅ Backup créé : /root/kong.yml.backup-$BACKUP_DATE"
+echo ""
+
+echo "2️⃣ Remplacement du kong.yml (sans plugins CORS)..."
+cat > "$KONG_CONFIG" << 'EOF'
+_format_version: '2.1'
+_transform: true
+
+###
+### Consumers / Users
+###
+consumers:
+  - username: DASHBOARD
+  - username: anon
+    keyauth_credentials:
+      - key: ${SUPABASE_ANON_KEY}
+  - username: service_role
+    keyauth_credentials:
+      - key: ${SUPABASE_SERVICE_KEY}
+
+###
+### Access Control List
+###
+acls:
+  - consumer: anon
+    group: anon
+  - consumer: service_role
+    group: admin
+
+###
+### Dashboard credentials
+###
+basicauth_credentials:
+  - consumer: DASHBOARD
+    username: $DASHBOARD_USERNAME
+    password: $DASHBOARD_PASSWORD
+
+###
+### API Routes (SANS plugins CORS)
+###
+services:
+  ## Auth routes
+  - name: auth-v1
+    _comment: 'GoTrue: /auth/v1/* -> http://auth:9999/*'
+    url: http://auth:9999/
+    routes:
+      - name: auth-v1-all
+        strip_path: true
+        paths:
+          - /auth/v1
+          - /auth/v1/
+    plugins:
+      - name: key-auth
+        config:
+          hide_credentials: false
+      - name: acl
+        config:
+          hide_groups_header: true
+          allow:
+            - admin
+            - anon
+
+  ## REST routes
+  - name: rest-v1
+    _comment: 'PostgREST: /rest/v1/* -> http://rest:3000/*'
+    url: http://rest:3000/
+    routes:
+      - name: rest-v1-all
+        strip_path: true
+        paths:
+          - /rest/v1/
+    plugins:
+      - name: key-auth
+        config:
+          hide_credentials: true
+      - name: acl
+        config:
+          hide_groups_header: true
+          allow:
+            - admin
+            - anon
+
+  ## GraphQL routes
+  - name: graphql-v1
+    _comment: 'PostgREST: /graphql/v1/* -> http://rest:3000/rpc/graphql'
+    url: http://rest:3000/rpc/graphql
+    routes:
+      - name: graphql-v1-all
+        strip_path: true
+        paths:
+          - /graphql/v1
+    plugins:
+      - name: key-auth
+        config:
+          hide_credentials: true
+      - name: request-transformer
+        config:
+          add:
+            headers:
+              - Content-Profile:graphql_public
+      - name: acl
+        config:
+          hide_groups_header: true
+          allow:
+            - admin
+            - anon
+
+  ## Realtime WebSocket
+  - name: realtime-v1-ws
+    _comment: 'Realtime: /realtime/v1/* -> ws://realtime:4000/socket/*'
+    url: http://realtime-dev.supabase-realtime:4000/socket
+    protocol: ws
+    routes:
+      - name: realtime-v1-ws
+        strip_path: true
+        paths:
+          - /realtime/v1/
+    plugins:
+      - name: key-auth
+        config:
+          hide_credentials: false
+      - name: acl
+        config:
+          hide_groups_header: true
+          allow:
+            - admin
+            - anon
+
+  ## Realtime REST
+  - name: realtime-v1-rest
+    _comment: 'Realtime: /realtime/v1/* -> ws://realtime:4000/socket/*'
+    url: http://realtime-dev.supabase-realtime:4000/api
+    protocol: http
+    routes:
+      - name: realtime-v1-rest
+        strip_path: true
+        paths:
+          - /realtime/v1/api
+    plugins:
+      - name: key-auth
+        config:
+          hide_credentials: false
+      - name: acl
+        config:
+          hide_groups_header: true
+          allow:
+            - admin
+            - anon
+
+  ## Storage routes
+  - name: storage-v1
+    _comment: 'Storage: /storage/v1/* -> http://storage:5000/*'
+    url: http://storage:5000/
+    routes:
+      - name: storage-v1-all
+        strip_path: true
+        paths:
+          - /storage/v1/
+
+  ## Edge Functions routes
+  - name: functions-v1
+    _comment: 'Edge Functions: /functions/v1/* -> http://functions:9000/*'
+    url: http://functions:9000/
+    routes:
+      - name: functions-v1-all
+        strip_path: true
+        paths:
+          - /functions/v1/
+
+  ## Analytics routes
+  - name: analytics-v1
+    _comment: 'Analytics: /analytics/v1/* -> http://logflare:4000/*'
+    url: http://analytics:4000/
+    routes:
+      - name: analytics-v1-all
+        strip_path: true
+        paths:
+          - /analytics/v1/
+
+  ## Database routes
+  - name: meta
+    _comment: 'pg-meta: /pg/* -> http://pg-meta:8080/*'
+    url: http://meta:8080/
+    routes:
+      - name: meta-all
+        strip_path: true
+        paths:
+          - /pg/
+    plugins:
+      - name: key-auth
+        config:
+          hide_credentials: false
+      - name: acl
+        config:
+          hide_groups_header: true
+          allow:
+            - admin
+
+  ## Dashboard
+  - name: dashboard
+    _comment: 'Studio: /* -> http://studio:3000/*'
+    url: http://studio:3000/
+    routes:
+      - name: dashboard-all
+        strip_path: true
+        paths:
+          - /
+    plugins:
+      - name: basic-auth
+        config:
+          hide_credentials: true
+EOF
+
+echo "   ✅ kong.yml mis à jour"
+echo ""
+
+echo "3️⃣ Vérification des variables CORS dans docker-compose.yml..."
+if grep -q "GOTRUE_CORS_ALLOWED_ORIGINS" "$DOCKER_COMPOSE"; then
+    echo "   ⚠️  Variables CORS déjà présentes"
+else
+    echo "   ❌ Variables CORS manquantes"
+    echo ""
+    echo "   ⚠️  IMPORTANT : Ajouter manuellement dans $DOCKER_COMPOSE"
+    echo "   Dans la section 'auth:' > 'environment:', ajouter :"
+    echo ""
+    echo "   GOTRUE_CORS_ALLOWED_ORIGINS: \"*\""
+    echo "   GOTRUE_CORS_ALLOWED_HEADERS: \"authorization,content-type,apikey,x-client-info\""
+    echo ""
+fi
+
+echo "4️⃣ Redémarrage des services..."
+cd /root/supabase-1.24.09/docker
+docker-compose restart auth
+docker-compose restart kong
+echo "   ✅ Services redémarrés"
+echo ""
+
+echo "5️⃣ Test CORS..."
+sleep 3
+curl -I -X OPTIONS https://api.bwcarpe.com/auth/v1/recover \
+  -H "Origin: https://bwcarpe.com" \
+  -H "Access-Control-Request-Method: POST" \
+  -H "Access-Control-Request-Headers: Content-Type" 2>&1 | grep -i "access-control"
+
+echo ""
+echo "✅ TERMINÉ !"
+echo ""
+echo "🧪 Teste maintenant depuis le navigateur : https://bwcarpe.com/auth"

@@ -1,0 +1,347 @@
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import { Link } from 'react-router-dom';
+import { Home, AlertCircle, Search, Database, Filter, Download, RefreshCw } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+
+interface EnzymeContribution {
+  id: string;
+  flour_id: string;
+  flour_name?: string;
+  category_name?: string;
+  contribution_enzymesyall?: {
+    amylases: number;
+    proteases: number;
+    lipases: number;
+    phytases: number;
+  };
+  amylases: number;
+  proteases: number;
+  lipases: number;
+  phytases: number;
+  enzymes_total_contri: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+function PrivateEnzymeContributionViewer() {
+  const [contributions, setContributions] = useState<EnzymeContribution[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [categories, setCategories] = useState<{id: string, name: string}[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    fetchCategories();
+    fetchContributions();
+  }, [user, searchTerm, selectedCategory]);
+
+  const fetchCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('private_flour_categories')
+        .select('id, name')
+        .eq('user_id_private_category', user?.id)
+        .order('name');
+      
+      if (error) throw error;
+      setCategories(data || []);
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+    }
+  };
+
+  const fetchContributions = async () => {
+    try {
+      setLoading(true);
+      
+      // First, get the flours with their categories
+      // Use the specific foreign key to avoid ambiguity
+      let query = supabase
+        .from('private_flours')
+        .select(`
+          id,
+          name,
+          private_flour_categories!private_flours_private_flour_categories_id_fkey (
+            name
+          )
+        `)
+        .eq('user_id_private_flours', user?.id);
+      
+      if (searchTerm) {
+        query = query.ilike('name', `%${searchTerm}%`);
+      }
+      
+      if (selectedCategory) {
+        query = query.eq('private_flour_categories_id', selectedCategory);
+      }
+      
+      const { data: floursData, error: floursError } = await query;
+      
+      if (floursError) {
+        console.error('Error fetching flours:', floursError);
+        throw new Error(`Error fetching flours: ${floursError.message}`);
+      }
+      
+      if (!floursData || floursData.length === 0) {
+        setContributions([]);
+        setLoading(false);
+        return;
+      }
+      
+      // Get the flour IDs
+      const flourIds = floursData.map(flour => flour.id);
+      
+      // Fetch the enzyme contributions
+      const { data: contributionsData, error: contributionsError } = await supabase
+        .from('contributionenzymes_private')
+        .select('*')
+        .in('flour_id', flourIds);
+      
+      if (contributionsError) {
+        console.error('Error fetching contributions:', contributionsError);
+        throw new Error(`Error fetching contributions: ${contributionsError.message}`);
+      }
+      
+      // Combine the data
+      const enrichedContributions = (contributionsData || []).map(contribution => {
+        const flour = floursData.find(f => f.id === contribution.flour_id);
+        
+        // Extract values from contribution_enzymesyall if it exists
+        let amylases = 0;
+        let proteases = 0;
+        let lipases = 0;
+        let phytases = 0;
+        
+        if (contribution.contribution_enzymesyall) {
+          const values = contribution.contribution_enzymesyall;
+          amylases = values.amylases || 0;
+          proteases = values.proteases || 0;
+          lipases = values.lipases || 0;
+          phytases = values.phytases || 0;
+        }
+        
+        return {
+          ...contribution,
+          flour_name: flour?.name || 'Unknown',
+          category_name: flour?.private_flour_categories?.name || 'Uncategorized',
+          amylases,
+          proteases,
+          lipases,
+          phytases
+        };
+      });
+      
+      setContributions(enrichedContributions);
+    } catch (err) {
+      console.error('Error fetching contributions:', err);
+      setError(`Error loading private enzyme contributions: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await fetchContributions();
+    setRefreshing(false);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchContributions();
+  };
+
+  const downloadCSV = () => {
+    if (contributions.length === 0) return;
+    
+    const headers = [
+      'ID',
+      'Flour ID',
+      'Flour Name',
+      'Category',
+      'Amylases',
+      'Proteases',
+      'Lipases',
+      'Phytases',
+      'Total Enzymes',
+      'Created At',
+      'Updated At'
+    ].join(',');
+    
+    const rows = contributions.map(contribution => [
+      contribution.id,
+      contribution.flour_id,
+      `"${contribution.flour_name || ''}"`,
+      `"${contribution.category_name || ''}"`,
+      contribution.amylases || 0,
+      contribution.proteases || 0,
+      contribution.lipases || 0,
+      contribution.phytases || 0,
+      contribution.enzymes_total_contri || 0,
+      contribution.created_at || '',
+      contribution.updated_at || ''
+    ].join(','));
+    
+    const csvContent = [headers, ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'private_enzyme_contributions.csv';
+    link.click();
+  };
+
+  if (loading && contributions.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-green-500 border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="bg-green-700 text-white p-2 rounded-lg hover:bg-green-600 transition-colors"
+              title="Retour à l'accueil"
+            >
+              <Home className="w-5 h-5" />
+            </Link>
+            <h2 className="text-2xl font-bold text-green-800">
+              Contributions Enzymes Privées
+            </h2>
+          </div>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleRefresh}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+              disabled={refreshing}
+            >
+              <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+              Rafraîchir
+            </button>
+            <button
+              onClick={downloadCSV}
+              className="flex items-center gap-2 px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-600 transition-colors"
+              disabled={contributions.length === 0}
+            >
+              <Download className="w-4 h-4" />
+              Exporter CSV
+            </button>
+          </div>
+        </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg flex items-center gap-2">
+            <AlertCircle className="w-5 h-5" />
+            {error}
+          </div>
+        )}
+
+        <div className="mb-6 bg-blue-50 p-4 rounded-lg">
+          <div className="flex items-center gap-2 text-blue-800 mb-2">
+            <Database className="w-5 h-5" />
+            <h3 className="font-semibold">À propos des contributions enzymatiques privées</h3>
+          </div>
+          <p className="text-blue-700 text-sm">
+            Cette page affiche les valeurs précises des enzymes pour vos farines privées. 
+            Ces données sont utilisées pour calculer l'impact enzymatique dans vos mélanges personnalisés.
+            Les valeurs sont exprimées en pourcentage d'activité enzymatique.
+          </p>
+          <ul className="list-disc list-inside text-blue-700 text-sm mt-2 ml-4">
+            <li>Amylases: Enzymes qui dégradent l'amidon</li>
+            <li>Protéases: Enzymes qui dégradent les protéines</li>
+            <li>Lipases: Enzymes qui dégradent les lipides</li>
+            <li>Phytases: Enzymes qui dégradent l'acide phytique</li>
+          </ul>
+        </div>
+
+        {/* Search and Filter */}
+        <div className="mb-6">
+          <form onSubmit={handleSearch} className="flex flex-wrap gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Rechercher une farine..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <select
+              value={selectedCategory || ''}
+              onChange={(e) => setSelectedCategory(e.target.value || null)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            >
+              <option value="">Toutes les catégories</option>
+              {categories.map(category => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <button 
+              type="submit"
+              className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"
+            >
+              <Filter className="w-4 h-4" />
+              Filtrer
+            </button>
+          </form>
+        </div>
+
+        {/* Data Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-2">Farine</th>
+                <th className="px-4 py-2">Catégorie</th>
+                <th className="px-4 py-2">Amylases</th>
+                <th className="px-4 py-2">Protéases</th>
+                <th className="px-4 py-2">Lipases</th>
+                <th className="px-4 py-2">Phytases</th>
+                <th className="px-4 py-2">Total</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {contributions.map((contribution) => (
+                <tr key={contribution.id} className="hover:bg-gray-50">
+                  <td className="px-4 py-2 font-medium">{contribution.flour_name}</td>
+                  <td className="px-4 py-2">{contribution.category_name}</td>
+                  <td className="px-4 py-2">{contribution.amylases.toFixed(2)}</td>
+                  <td className="px-4 py-2">{contribution.proteases.toFixed(2)}</td>
+                  <td className="px-4 py-2">{contribution.lipases.toFixed(2)}</td>
+                  <td className="px-4 py-2">{contribution.phytases.toFixed(2)}</td>
+                  <td className="px-4 py-2 font-semibold">{contribution.enzymes_total_contri.toFixed(2)}</td>
+                </tr>
+              ))}
+              {contributions.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-4 py-8 text-center text-gray-500">
+                    {searchTerm || selectedCategory ? 'Aucun résultat trouvé' : 'Aucune donnée disponible'}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Summary */}
+        <div className="mt-4 text-sm text-gray-600">
+          Total: {contributions.length} contributions
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default PrivateEnzymeContributionViewer;

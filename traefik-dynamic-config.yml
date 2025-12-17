@@ -1,0 +1,45 @@
+# Alternative: Configuration dynamique Traefik pour CORS
+# Créez ce fichier et référencez-le dans votre traefik.yml
+
+http:
+  middlewares:
+    cors-headers:
+      headers:
+        accessControlAllowOriginList:
+          - "https://localhost:5173"
+          - "http://localhost:5173"
+          - "https://127.0.0.1:5173"
+          - "http://127.0.0.1:5173"
+          - "https://api.bwcarpe.com"
+        accessControlAllowMethods:
+          - "GET"
+          - "POST"
+          - "PUT"
+          - "DELETE"
+          - "OPTIONS"
+          - "PATCH"
+        accessControlAllowHeaders:
+          - "origin"
+          - "x-requested-with"
+          - "content-type"
+          - "accept"
+          - "authorization"
+          - "apikey"
+          - "x-client-info"
+        accessControlMaxAge: 86400
+        addVaryHeader: true
+
+  routers:
+    supabase:
+      rule: "Host(`api.bwcarpe.com`)"
+      service: supabase-service
+      middlewares:
+        - cors-headers
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    supabase-service:
+      loadBalancer:
+        servers:
+          - url: "http://supabase-kong:8000"

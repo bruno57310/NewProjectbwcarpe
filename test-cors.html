@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test CORS</title>
+</head>
+<body>
+    <h1>Test de connectivité CORS</h1>
+    <button onclick="testCors()">Tester la connexion</button>
+    <div id="result"></div>
+
+    <script>
+        async function testCors() {
+            const result = document.getElementById('result');
+            result.innerHTML = 'Test en cours...';
+            
+            try {
+                // Test simple GET request
+                const response = await fetch('https://api.bwcarpe.com/rest/v1/', {
+                    method: 'GET',
+                    headers: {
+                        'apikey': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjIwNjg3NzEzNzgsImlhdCI6MTc1MzIzODU3OCwiaXNzIjoic3VwYWJhc2UiLCJyb2xlIjoiYW5vbiJ9.OrdueEchupFeYux3ruESsvH7WMfjoU-Ivma2mTfHTyo',
+                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjIwNjg3NzEzNzgsImlhdCI6MTc1MzIzODU3OCwiaXNzIjoic3VwYWJhc2UiLCJyb2xlIjoiYW5vbiJ9.OrdueEchupFeYux3ruESsvH7WMfjoU-Ivma2mTfHTyo'
+                    }
+                });
+                
+                result.innerHTML = `
+                    <h3 style="color: green;">✅ Connexion réussie !</h3>
+                    <p>Status: ${response.status}</p>
+                    <p>Headers: ${JSON.stringify([...response.headers.entries()], null, 2)}</p>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <h3 style="color: red;">❌ Erreur de connexion</h3>
+                    <p>Erreur: ${error.message}</p>
+                    <p>Type: ${error.name}</p>
+                    <p><strong>Si vous voyez "Failed to fetch" ou "CORS", c'est un problème CORS !</strong></p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

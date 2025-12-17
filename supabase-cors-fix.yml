@@ -1,0 +1,54 @@
+# Configuration CORS complète pour Supabase Self-hosted
+# À ajouter dans votre docker-compose.yml de Supabase
+
+version: '3.8'
+services:
+  kong:
+    image: kong/kong-gateway:3.4.2.0
+    environment:
+      # Configuration CORS pour Kong
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /var/lib/kong/kong.yml
+      KONG_DNS_ORDER: LAST,A,CNAME
+      KONG_PLUGINS: request-id,kong-offline-plugins,basic-auth,key-auth,cors
+      KONG_NGINX_PROXY_PROXY_BUFFER_SIZE: 160k
+      KONG_NGINX_PROXY_PROXY_BUFFERS: 64 160k
+      
+      # Configuration CORS spécifique
+      KONG_CORS_ORIGINS: "*"
+      KONG_CORS_METHODS: "GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      KONG_CORS_HEADERS: "Origin,X-Requested-With,Content-Type,Accept,Authorization,apikey,x-client-info,x-supabase-api-version"
+      KONG_CORS_EXPOSED_HEADERS: "X-Auth-Token"
+      KONG_CORS_CREDENTIALS: "true"
+      KONG_CORS_MAX_AGE: "86400"
+    labels:
+      # Labels Traefik pour CORS
+      - "traefik.enable=true"
+      - "traefik.http.routers.supabase.rule=Host(`api.bwcarpe.com`)"
+      - "traefik.http.routers.supabase.tls=true"
+      - "traefik.http.routers.supabase.tls.certresolver=letsencrypt"
+      
+      # Middleware CORS Traefik
+      - "traefik.http.middlewares.supabase-cors.headers.accesscontrolalloworiginlist=*"
+      - "traefik.http.middlewares.supabase-cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      - "traefik.http.middlewares.supabase-cors.headers.accesscontrolallowheaders=Origin,X-Requested-With,Content-Type,Accept,Authorization,apikey,x-client-info,x-supabase-api-version"
+      - "traefik.http.middlewares.supabase-cors.headers.accesscontrolallowcredentials=true"
+      - "traefik.http.middlewares.supabase-cors.headers.accesscontrolmaxage=86400"
+      - "traefik.http.middlewares.supabase-cors.headers.addvaryheader=true"
+      
+      # Appliquer le middleware CORS
+      - "traefik.http.routers.supabase.middlewares=supabase-cors"
+      
+      # Service
+      - "traefik.http.services.supabase.loadbalancer.server.port=8000"
+
+  # Configuration GoTrue (Auth service)
+  auth:
+    image: supabase/gotrue:v2.151.0
+    environment:
+      # Configuration CORS pour GoTrue
+      GOTRUE_CORS_ALLOWED_HEADERS: "Origin,X-Requested-With,Content-Type,Accept,Authorization,apikey,x-client-info,x-supabase-api-version"
+      GOTRUE_CORS_ALLOWED_ORIGINS: "*"
+      GOTRUE_CORS_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      GOTRUE_CORS_ALLOW_CREDENTIALS: "true"
+      GOTRUE_CORS_MAX_AGE: "86400"

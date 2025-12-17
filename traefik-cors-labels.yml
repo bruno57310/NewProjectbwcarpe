@@ -1,0 +1,22 @@
+# Ajoutez ces labels à votre service Traefik dans docker-compose.yml
+
+services:
+  traefik:
+    image: traefik:v3.4.3
+    labels:
+      # CORS Middleware
+      - "traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=https://localhost:5173,http://localhost:5173,https://127.0.0.1:5173,http://127.0.0.1:5173"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      - "traefik.http.middlewares.cors.headers.accesscontrolallowheaders=Origin,X-Requested-With,Content-Type,Accept,Authorization,apikey,x-client-info"
+      - "traefik.http.middlewares.cors.headers.accesscontrolmaxage=86400"
+      - "traefik.http.middlewares.cors.headers.addvaryheader=true"
+      
+  # Votre service Supabase (Kong)
+  supabase-kong:
+    image: supabase/kong:latest
+    labels:
+      # Appliquer le middleware CORS
+      - "traefik.http.routers.supabase.middlewares=cors"
+      - "traefik.http.routers.supabase.rule=Host(`api.bwcarpe.com`)"
+      - "traefik.http.routers.supabase.tls=true"
+      - "traefik.http.routers.supabase.tls.certresolver=letsencrypt"

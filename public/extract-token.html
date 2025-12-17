@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Recovery Token</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .token-display {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .label {
+            font-weight: bold;
+            color: #666;
+            margin-top: 15px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Extract Recovery Token</h1>
+        <p>Cette page extrait automatiquement les tokens du hash fragment de l'URL.</p>
+
+        <div id="status"></div>
+
+        <div class="label">Access Token:</div>
+        <div class="token-display" id="accessToken">Aucun token trouvé</div>
+        <button onclick="copyToken('access')">📋 Copier Access Token</button>
+
+        <div class="label">Refresh Token:</div>
+        <div class="token-display" id="refreshToken">Aucun token trouvé</div>
+        <button onclick="copyToken('refresh')">📋 Copier Refresh Token</button>
+
+        <div class="label">Type:</div>
+        <div class="token-display" id="type">-</div>
+
+        <div class="label">Expires In:</div>
+        <div class="token-display" id="expiresIn">-</div>
+
+        <div class="label">Hash Fragment complet:</div>
+        <div class="token-display" id="fullHash">-</div>
+    </div>
+
+    <script>
+        let accessToken = '';
+        let refreshToken = '';
+
+        function extractTokens() {
+            const hash = window.location.hash.substring(1);
+            const statusDiv = document.getElementById('status');
+
+            if (!hash) {
+                statusDiv.innerHTML = '<p class="error">❌ Aucun hash fragment trouvé dans l\'URL</p>';
+                statusDiv.innerHTML += '<p>Collez le lien complet depuis l\'email dans votre navigateur.</p>';
+                return;
+            }
+
+            const params = new URLSearchParams(hash);
+            accessToken = params.get('access_token') || '';
+            refreshToken = params.get('refresh_token') || '';
+            const type = params.get('type') || '';
+            const expiresIn = params.get('expires_in') || '';
+
+            document.getElementById('fullHash').textContent = hash;
+
+            if (accessToken) {
+                document.getElementById('accessToken').textContent = accessToken;
+                statusDiv.innerHTML = '<p class="success">✅ Tokens extraits avec succès!</p>';
+            } else {
+                document.getElementById('accessToken').textContent = 'Non trouvé';
+                statusDiv.innerHTML = '<p class="error">❌ Access token non trouvé</p>';
+            }
+
+            if (refreshToken) {
+                document.getElementById('refreshToken').textContent = refreshToken;
+            } else {
+                document.getElementById('refreshToken').textContent = 'Non trouvé';
+            }
+
+            document.getElementById('type').textContent = type || '-';
+            document.getElementById('expiresIn').textContent = expiresIn ? `${expiresIn} secondes` : '-';
+        }
+
+        function copyToken(type) {
+            const token = type === 'access' ? accessToken : refreshToken;
+            if (!token) {
+                alert('Aucun token à copier');
+                return;
+            }
+
+            navigator.clipboard.writeText(token).then(() => {
+                alert('Token copié dans le presse-papier!');
+            }).catch(err => {
+                // Fallback pour les navigateurs plus anciens
+                const textarea = document.createElement('textarea');
+                textarea.value = token;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Token copié dans le presse-papier!');
+            });
+        }
+
+        // Extraire automatiquement au chargement
+        extractTokens();
+
+        // Surveiller les changements de hash
+        window.addEventListener('hashchange', extractTokens);
+    </script>
+</body>
+</html>

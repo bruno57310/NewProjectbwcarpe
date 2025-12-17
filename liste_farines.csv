@@ -1,0 +1,23 @@
+ID,Nom,Catégorie,Protéines (%),Lipides (%),Glucides (%),Fibres (%),Humidité (%),Cendres (%),Profil Protéique,Qualité Protéique,Solubilité,Ratio Min (%),Ratio Max (%),Albumines (%),Globulines (%),Prolamines (%),Glutélines (%),Amylases (%),Protéases (%),Lipases (%),Phytases (%),Acide Phytique,Tanins,Inhibiteurs de Trypsine,Saponines,Lectines,Liaison,Collant,Absorption d'eau
+f47ac10b-58cc-4372-a567-0e02b2c3d479,Farine de Blé T45,Céréales,10,1.5,70,3,13,0.5,simple,incomplete,medium,50,100,15,20,40,25,20,10,5,5,low,low,low,low,low,high,medium,medium
+b6ea4744-b834-4a73-8644-0f2d5c0c3c76,Farine de Maïs,Céréales,8,3.5,75,2.5,12,1,simple,incomplete,low,30,70,20,25,30,25,15,10,5,5,low,low,low,low,low,medium,low,medium
+c9f0f895-cd41-4b3f-b0c6-3e4c7f89a121,Farine de Poisson LT94,Protéines Animales,72,8,2,1,8,9,complex,complete,high,10,30,35,30,20,15,5,25,15,10,low,low,medium,low,low,low,medium,high
+d67d8ab4-0e6f-4abc-a77f-9642f81c3e2e,Farine de Soja,Protéines Végétales,52,1,30,7,10,6,complex,complete,medium,20,50,30,35,15,20,10,20,15,15,medium,low,high,medium,medium,high,medium,medium
+e4da3b7f-bbce-4b2d-9b5d-ab8dfbbd4bed,Farine de Riz,Céréales,7,1,80,1,11,0.5,simple,incomplete,low,40,90,15,20,35,30,10,5,5,5,low,low,low,low,low,high,high,medium
+f8c1d87a-7b42-4c6a-9d5f-62f0f1b21562,Farine de Crevette,Protéines Animales,65,10,4,2,8,11,complex,complete,high,5,25,40,35,15,10,5,30,20,10,low,low,medium,low,low,low,medium,high
+g9e2f3c1-6d83-4b7a-8e9c-1f2d3b4c5a6b,Farine de Krill,Protéines Animales,60,15,3,1,9,12,complex,complete,high,5,20,45,30,15,10,5,35,25,10,low,low,medium,low,low,low,medium,high
+h0f4e3d2-5c74-4a6b-7d8e-0e1f2g3h4i5j,Farine de Lupin,Protéines Végétales,40,8,30,12,10,4,complex,complete,medium,15,40,35,30,20,15,15,25,15,15,medium,low,medium,medium,medium,medium,low,medium
+i1g5f4e3-4b65-3a5b-6c7d-9e8f7g6h5i4j,Farine de Pois,Protéines Végétales,45,2,35,8,10,3,complex,complete,medium,20,45,30,35,20,15,15,20,10,15,medium,low,medium,medium,medium,medium,low,medium
+j2h6g5f4-3a54-2b4c-5d6e-8f7g6h5i4j3k,Farine de Chanvre,Protéines Végétales,35,10,25,15,9,5,complex,complete,low,10,35,30,35,20,15,10,20,15,15,low,low,low,low,low,medium,low,medium
+k3i7h6g5-2b43-1a3b-4c5d-7e6f5g4h3i2j,Farine de Sang,Protéines Animales,85,1,1,0,8,5,complex,complete,high,5,15,40,35,15,10,5,30,20,10,low,low,medium,low,low,low,high,high
+l4j8i7h6-1a32-0b2c-3d4e-6f5g4h3i2j1k,Farine de Foie,Protéines Animales,70,12,2,1,9,6,complex,complete,high,5,20,45,30,15,10,5,35,25,10,low,low,medium,low,low,low,medium,high
+m5k9j8i7-0b21-9a1b-2c3d-5e4f3g2h1i0j,Semoule de Blé Dur,Céréales,12,2,68,3,13,2,simple,incomplete,low,30,60,20,25,35,20,15,10,5,5,low,low,low,low,low,medium,medium,medium
+n6l0k9j8-9a10-8b0a-1b2c-4d3e2f1g0h9i,Farine d'Avoine,Céréales,14,7,60,10,11,2,simple,incomplete,low,20,50,25,30,25,20,20,15,10,10,medium,low,low,low,low,medium,low,medium
+o7m1l0k9-8b09-7a9b-0a1b-3c2d1e0f9g8h,Farine de Moule,Protéines Animales,55,8,5,2,9,21,complex,complete,high,10,30,40,35,15,10,5,30,20,10,low,low,medium,low,low,low,medium,high
+p8n2m1l0-7a98-6b8a-9a0b-2c1d0e9f8g7h,Farine de Calmar,Protéines Animales,75,6,3,1,8,7,complex,complete,high,5,25,45,30,15,10,5,35,25,10,low,low,medium,low,low,low,medium,high
+q9o3n2m1-6b87-5a7b-8b9a-1c0d9e8f7g6h,Farine de Sarrasin,Céréales,12,3,65,10,12,2,simple,incomplete,medium,20,50,25,30,25,20,15,10,5,5,low,low,low,low,low,medium,low,medium
+r0p4o3n2-5a76-4b6a-7b8a-0b9c8d7e6f5g,Farine de Quinoa,Céréales,14,6,64,7,11,2.5,complex,complete,medium,15,45,30,35,20,15,15,10,5,5,low,low,low,low,low,medium,low,medium
+s1q5p4o3-4b65-3a5b-6a7b-9a8b7c6d5e4f,Farine d'Amarante,Céréales,15,7,63,8,10,2.5,complex,complete,medium,15,40,30,35,20,15,15,10,5,5,low,low,low,low,low,medium,low,medium
+t2r6q5p4-3a54-2b4a-5b6a-8b7a6b5c4d3e,Farine de Lentilles,Protéines Végétales,25,1,60,11,10,2.5,complex,complete,medium,15,35,35,30,20,15,10,15,10,10,medium,low,medium,medium,medium,medium,low,medium
+u3s7r6q5-2b43-1a3b-4a5b-7a6b5a4b3c2d,Farine de Pois Chiche,Protéines Végétales,22,5,58,12,10,3,complex,complete,medium,15,40,35,30,20,15,10,15,10,10,medium,low,medium,medium,medium,medium,low,medium
+v4t8s7r6-1a32-0b2c-3b4a-6b5a4b3a2b1c,Farine de Fèves,Protéines Végétales,26,2,56,10,10,3,complex,complete,medium,15,35,35,30,20,15,10,15,10,10,medium,low,medium,medium,medium,medium,low,medium

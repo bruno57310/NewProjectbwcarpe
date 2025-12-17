@@ -1,0 +1,372 @@
+{
+  "common": {
+    "home": "Accueil",
+    "catalog": "Catalogue",
+    "calculator": "Calculateur",
+    "pricing": "Abonnements",
+    "donation": "Faire un don",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "myAccount": "Mon Espace",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "view": "Voir",
+    "search": "Rechercher",
+    "filter": "Filtres",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "required": "Requis",
+    "optional": "Optionnel",
+    "all": "Tous",
+    "none": "Aucun",
+    "yes": "Oui",
+    "no": "Non",
+    "close": "Fermer",
+    "created": "Créé le",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "accessDenied": "Accès refusé. Vous n'avez pas les permissions nécessaires pour accéder à cette page.",
+    "seconds": "secondes",
+    "minutes": "minutes",
+    "add": "Ajouter",
+    "noResults": "Aucun résultat trouvé",
+    "flour": "Farine",
+    "tip": "Conseil",
+    "reset": "Réinitialiser",
+    "refresh": "Actualiser"
+  },
+  "navigation": {
+    "catalogs": "Catalogues",
+    "publicCatalog": "Catalogue Public",
+    "enterpriseCatalog": "Catalogue Enterprise",
+    "privateCatalog": "Catalogue Privé",
+    "demoCatalog": "Catalogue Démo",
+    "needDonation": "Besoin de dons"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "email": "Email",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Pas encore de compte ? S'inscrire",
+    "hasAccount": "Déjà un compte ? Se connecter",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "emailRequired": "Veuillez entrer une adresse email valide",
+    "passwordRequired": "Le mot de passe doit contenir au moins 6 caractères",
+    "loginError": "Email ou mot de passe incorrect",
+    "emailExistsError": "Un compte existe déjà avec cet email",
+    "genericError": "Une erreur est survenue. Veuillez réessayer.",
+    "resetEmailSent": "Un email de réinitialisation a été envoyé à votre adresse. Vérifiez également votre dossier spam.",
+    "resetEmailError": "Impossible d'envoyer l'email de réinitialisation",
+    "accountCreated": "Compte créé avec succès ! Vous pouvez maintenant vous connecter.",
+    "checkSpam": "Si vous ne recevez pas l'email, vérifiez votre dossier spam ou contactez le support.",
+    "resetRateLimit": "Veuillez attendre {{seconds}} secondes avant de demander un autre email de réinitialisation.",
+    "emailRateLimitError": "Trop de tentatives. Veuillez réessayer plus tard.",
+    "emailNotFoundError": "Aucun compte trouvé avec cette adresse email.",
+    "serviceConfigError": "Erreur de configuration du service. Veuillez contacter l'administrateur.",
+    "tooManyAttempts": "Trop de tentatives. Veuillez réessayer dans {{minutes}} minutes.",
+    "nextAttemptIn": "Prochain essai possible dans {{seconds}} secondes.",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+    "passwordResetSuccess": "Votre mot de passe a été réinitialisé avec succès !",
+    "passwordResetSuccessLogin": "Réinitialisation réussie. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+    "setNewPassword": "Définir un nouveau mot de passe",
+    "backToLogin": "Retour à la connexion",
+    "invalidResetLink": "Lien de réinitialisation invalide ou expiré. Veuillez demander une nouvelle réinitialisation."
+  },
+  "landing": {
+    "hero": {
+      "title": "Créez des Mixs d'Appâts Parfaits",
+      "subtitle": "Optimisez vos bouillettes avec notre catalogue de farines et notre calculateur de mélanges intelligent",
+      "exploreCatalog": "Explorer le Catalogue",
+      "calculateMix": "Calculer un Mix",
+      "imgsrc": "https://photos.bwcarpe.com:8443/PreparingBait.png",
+      "imgalt": "Préparation d'appâts pour la pêche à la carpe"
+    },
+    "donation": {
+      "title": "Soutenez le Développement",
+      "description": "Cette application est en développement actif et représente ma seule source de revenus. Votre soutien permet de maintenir le service gratuit et d'ajouter de nouvelles fonctionnalités.",
+      "button": "Faire un don",
+      "benefits": "Tous les donateurs bénéficieront d'avantages exclusifs dans la version finale"
+    },
+    "features": {
+      "catalog": {
+        "title": "Catalogue Complet",
+        "description": "Accédez à notre base de données détaillée de farines avec leurs propriétés nutritionnelles et mécaniques."
+      },
+      "calculator": {
+        "title": "Calculateur Intelligent",
+        "description": "Créez et analysez vos mélanges avec notre calculateur qui vous donne des statistiques en temps réel."
+      },
+      "personal": {
+        "title": "Espace Personnel",
+        "description": "Sauvegardez vos recettes favorites et partagez vos créations avec la communauté."
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça marche ?",
+      "step1": {
+        "title": "Choisissez vos farines",
+        "description": "Parcourez notre catalogue et sélectionnez les farines qui vous intéressent."
+      },
+      "step2": {
+        "title": "Calculez votre mix",
+        "description": "Utilisez notre calculateur pour optimiser les proportions de votre mélange."
+      },
+      "step3": {
+        "title": "Analysez et ajustez",
+        "description": "Visualisez les propriétés de votre mix et affinez-le selon vos besoins."
+      }
+    },
+    "cta": {
+      "title": "Prêt à créer votre mix parfait ?",
+      "description": "Rejoignez notre communauté et commencez à créer des mélanges optimisés pour vos sessions de pêche.",
+      "button": "Créer un compte"
+    }
+  },
+  "catalog": {
+    "title": "Catalogue des Farines",
+    "demoVersion": "Version Démo",
+    "searchPlaceholder": "Rechercher une farine...",
+    "category": "Catégorie",
+    "details": "Voir les détails",
+    "nutritionalValues": "Valeurs Nutritionnelles",
+    "proteins": "Protéines",
+    "lipids": "Lipides",
+    "carbs": "Glucides",
+    "properties": "Propriétés",
+    "proteinProfile": "Profil Protéique",
+    "proteinQuality": "Qualité Protéique",
+    "proteinComposition": "Composition Protéique",
+    "enzymaticComposition": "Composition Enzymatique",
+    "antiNutrients": "Anti-nutriments",
+    "mechanicalProperties": "Propriétés Mécaniques",
+    "binding": "Liaison",
+    "stickiness": "Collant",
+    "waterAbsorption": "Absorption d'eau",
+    "solubility": "Solubilité",
+    "usage": "Conseils d'Utilisation",
+    "recommendedRatio": "Ratio Conseillé",
+    "tips": "Conseils",
+    "demoMessage": "Vous utilisez actuellement la version démo du catalogue. Pour accéder au catalogue complet, passez à un abonnement supérieur.",
+    "upgradeLink": "passez à un abonnement supérieur",
+    "allCategories": "Toutes les catégories",
+    "selectCategory": "Sélectionner une catégorie",
+    "pricePerKg": "Prix au kg",
+    "flour": "Farine",
+    "tip": "Conseil"
+  },
+  "calculator": {
+    "title": "Calculateur de Mix",
+    "editMix": "Modifier le Mix",
+    "viewMix": "Détails du Mix",
+    "saveMix": "Sauvegarder le Mix",
+    "updateMix": "Mettre à jour",
+    "loginToSave": "Connexion pour sauvegarder",
+    "selectCatalog": "Sélectionner un catalogue",
+    "publicCatalog": "Catalogue Public",
+    "enterpriseCatalog": "Catalogue Enterprise",
+    "privateCatalog": "Catalogue Privé",
+    "addFlour": "Ajouter une farine",
+    "demoFlours": "Catalogue Démo",
+    "selectFlour": "Sélectionner une farine",
+    "total": "Total",
+    "mustBe100": "doit être égal à 100%",
+    "mixComposition": "Composition du Mix",
+    "nutritionalValues": "Valeurs Nutritionnelles",
+    "enzymaticComposition": "Composition Enzymatique",
+    "antiNutrients": "Anti-nutriments",
+    "savedMixes": {
+      "empty": "Aucun mix sauvegardé",
+      "title": "Mix Sauvegardés"
+    },
+    "createNewMix": "Créer un nouveau mix",
+    "saveMixModal": {
+      "title": "Sauvegarder le Mix",
+      "editTitle": "Modifier le Mix",
+      "mixName": "Nom du mix",
+      "mixNamePlaceholder": "Ex: Mix Protéiné Été",
+      "description": "Description",
+      "descriptionPlaceholder": "Description de votre mix (optionnel)",
+      "tags": "Tags",
+      "addTag": "Ajouter",
+      "addTagPlaceholder": "Ajouter un tag"
+    },
+    "mixName": "Nom du mix",
+    "mixDescription": "Description",
+    "mixTags": "Tags",
+    "addTag": "Ajouter un tag",
+    "mixUpdated": "Mix mis à jour avec succès",
+    "mixSaved": "Mix sauvegardé avec succès",
+    "flourNotFound": "Farine non trouvée",
+    "flourAlreadyAdded": "Farine déjà ajoutée au mix",
+    "solubility": "Solubilité",
+    "mechanicalProperties": "Propriétés Mécaniques",
+    "demoMessage": "Vous utilisez actuellement la version démo du calculateur. Pour accéder au catalogue complet, passez à un abonnement supérieur.",
+    "mixCombiner": {
+      "title": "Combinaison de Mix",
+      "description": "Combinez plusieurs mix sauvegardés pour créer un nouveau mix optimisé",
+      "savedMixes": "Mix Sauvegardés",
+      "selectMixes": "Sélectionnez les mix à combiner",
+      "combine": "Combiner les Mix",
+      "combinedMix": "Mix Combiné",
+      "selectMixesPrompt": "Sélectionnez des mix sauvegardés et cliquez sur 'Combiner les Mix' pour créer un nouveau mix",
+      "sendToN8n": "Envoyer les Mix à N8N",
+      "sent": "Envoyé !",
+      "selectBetween2And4": "Sélectionnez entre 2 et 4 mix.",
+      "noMixesSelected": "Aucun mix sélectionné pour le moment.",
+      "aboutN8nIntegration": "À propos de l'intégration N8N",
+      "n8nDescription": "Cette fonctionnalité vous permet d'envoyer les identifiants des mix sélectionnés à un workflow N8N pour un traitement et une analyse supplémentaires.",
+      "response": "Détails de la réponse"
+    }
+  },
+  "pricing": {
+    "title": "Abonnements",
+    "subtitle": "Choisissez votre plan",
+    "description": "Des solutions adaptées à tous les besoins, de l'amateur passionné au professionnel exigeant",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "savingsLabel": "Économisez jusqu'à 17%",
+    "recommended": "RECOMMANDÉ",
+    "free": {
+      "name": "Gratuit",
+      "price": "Gratuit",
+      "features": [
+        "Accès au catalogue de démo",
+        "Calculateur de mix: Uniquement pour test de fonctionalité. Pas de valeurs réelles pour tout. ",
+        "Sauvegarde de mix possible",
+        "Pas de Support"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "features": [
+        "Catalogue Public avec détails simplifiés",
+        "Calculateur de mix simple",
+        "Analyses nutritionnelles sans la Composition Enzymatique",
+        "Valeurs  Anti-nutriments défini sur base de répartition par type: lectins, tannins, saponins, phytic acid et trypsin inhibitors. Total 100%",
+        "Support fonctionnel"
+      ]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "features": [
+        "Catalogue Public avec détails simplifiés + Catalogue Enterprise + Privé avec détails avancés",
+        "API d'accès aux données: Outils Enterprise --> Table Analyzer: Import et Export des farines au format fichier CSV",
+        "Tableau de bord personnalisé",
+        "Support dédié 24/6 de 10H00 à 12H00 et 14H00 à 18H00",
+        "Formation personnalisée",
+        "Accès anticipé aux nouvelles fonctionnalités"
+      ]
+    },
+    "billing": {
+      "monthly": "Facturation mensuelle",
+      "yearly": "Facturation annuelle",
+      "discount": "(-{percentage}%)"
+    },
+    "choosePlan": "Choisir ce plan",
+    "loginToSubscribe": "Se connecter pour s'abonner",
+    "faq": {
+      "title": "Questions Fréquentes",
+      "q1": "Puis-je changer de plan à tout moment ?",
+      "a1": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prendront effet à la prochaine période de facturation.",
+      "q2": "Y a-t-il un engagement minimum ?",
+      "a2": "Non, tous nos plans sont sans engagement. Vous pouvez annuler à tout moment.",
+      "q3": "Comment fonctionne la facturation ?",
+      "a3": "La facturation est {billingInterval} et automatique. Vous recevrez une facture par email à chaque renouvellement.",
+      "q4": "Que se passe-t-il si j'annule mon abonnement ?",
+      "a4": "Vous conservez l'accès à toutes les fonctionnalités jusqu'à la fin de la période en cours. Ensuite, votre compte repassera automatiquement en version gratuite."
+    }
+  },
+  "donation": {
+    "title": "Don",
+    "readingTime": "Temps de lecture : 2 minutes",
+    "paragraph1": "Pour que cette application fonctionne, je dois investir du temps et de l'argent. Je travaille environ 50 à 100 heures par semaine dessus,",
+    "paragraph2": "et je dépense beaucoup d'argent en logiciels, notamment pour l'achat de listes certifiées des différents ingrédients qui composent un mélange à bouillettes.",
+    "paragraph3": "Malheureusement, la plupart des entreprises de pêche ont pour politique de ne pas collaborer avec les développeurs de logiciels. C'est pourquoi je paie un supplément pour tout. Je n'ai aucun sponsor et suis ouvert à toute proposition potentielle.",
+    "paragraph4": "Je souhaite collaborer avec l'entreprise ROD OLIVER : https://www.rodoliver.com/, spécialisée dans le développement d'appâts pour la pêche à la carpe. Aucune collaboration n'a été évoquée à ce jour. Pour l'instant, ce n'est qu'un espoir.",
+    "warningBox": "Votre don contribue à la pérennité de cette application. Elle représente actuellement ma seule source de revenus. 🚧 Application en développement 🚧 : Je ne peux plus poursuivre le développement ; mes propres finances ne suffisent plus. Je suis actuellement au chômage. Toute personne ayant fait un don bénéficiera des avantages de la version finale de l'application. Ces informations restent à définir.",
+    "infoBox": "Pour information : Les abonnements sont actuellement disponibles et gratuits, tout comme l'inscription.",
+    "donateButton": "Faire un don avec PayPal / Donate with PayPal",
+    "developerInfo": "Développeur de l'application / App Developer:",
+    "developerName": "Bruno Wendling",
+    "thanks": "Merci de votre lecture et de votre compréhension❤"
+  },
+  "blog": {
+    "title": "Blog",
+    "viewBlog": "Voir le blog",
+    "backToList": "Retour à la liste des articles",
+    "searchPlaceholder": "Rechercher un article...",
+    "allCategories": "Toutes les catégories",
+    "readMore": "Lire la suite",
+    "share": "Partager",
+    "save": "Sauvegarder",
+    "comments": "Commentaires",
+    "writeComment": "Écrire un commentaire...",
+    "loginToComment": "Connectez-vous pour commenter",
+    "submitComment": "Publier",
+    "noComments": "Aucun commentaire pour le moment. Soyez le premier à commenter !",
+    "noSearchResults": "Aucun résultat pour \"{term}\"",
+    "noPosts": "Aucun article disponible pour le moment",
+    "accessDenied": "Accès Restreint",
+    "proPlanRequired": "Cet article est uniquement disponible pour les abonnés Pro et Enterprise. Veuillez mettre à niveau votre abonnement pour accéder à ce contenu.",
+    "enterprisePlanRequired": "Cet article est uniquement disponible pour les abonnés Enterprise. Veuillez mettre à niveau votre abonnement pour accéder à ce contenu.",
+    "upgradeSubscription": "Mettre à niveau l'abonnement",
+    "categories": {
+      "perfectBait": "L'appât parfait",
+      "mixDesign": "Conception d'un mix",
+      "calculator": "Calculateur",
+      "subscriptions": "Abonnements"
+    },
+    "admin": {
+      "title": "Gestion du Blog",
+      "newPost": "Nouvel article",
+      "editPost": "Modifier l'article",
+      "excerpt": "Extrait",
+      "content": "Contenu",
+      "category": "Catégorie",
+      "tags": "Tags",
+      "tagsPlaceholder": "Séparés par des virgules (ex: été, protéines, bouillettes)",
+      "imageUrl": "URL de l'image",
+      "date": "Date",
+      "stats": "Statistiques",
+      "noPosts": "Aucun article disponible",
+      "htmlSupported": "Le HTML est pris en charge pour la mise en forme"
+    }
+  },
+  "footer": {
+    "about": "À Propos",
+    "aboutText": "CarpBait Pro vous aide à créer des mélanges d'appâts optimisés pour la pêche à la carpe.",
+    "quickLinks": "Liens Rapides",
+    "contact": "Contact",
+    "contactText": "Une question ? N'hésitez pas à nous contacter.",
+    "copyright": "© 2025 CarpBait Pro - Tous droits réservés"
+  },
+  "development": {
+    "banner": "🚧 Application en cours de développement 🚧"
+  },
+  "textWindow": {
+    "PetiteExplicationTitle": "Petite Explication",
+    "PetiteExplicationContent": "Cette application est conçue pour vous aider à créer des mélanges d'appâts optimisés pour la pêche à la carpe. Parcourez notre catalogue de farines, utilisez notre calculateur pour créer vos mélanges, et sauvegardez vos recettes préférées.",
+    "antinutriensTitle": "Recommandations générales (formulation appâts carpe)",
+    "antinutriensContent": "Anti-nutriment\t\t\t\tSeuil recommandé (%) dans un mix\tRemarques\nAcide phytique\t\t\t\t≤ 0,4 %\t\t\t\t\t\t\t\tAu-delà, il commence à perturber l'absorption des minéraux (Ca, Zn, Fe…)\n\t\t\t\t\t\t\t\t\t\t\t\t\tNeutralisé en partie par la phytase ou fermentation.\n\nInhibiteurs de trypsine\t\t≤ 0,1 %\t\t\t\t\t\t\t\tDiminue l'efficacité de la digestion des protéines\n\t\t\t\t\t\t\t\t\t\t\t\t\tPerturbe la digestion des protéines, surtout chez les jeunes carpes.\n\nLectines\t\t\t\t≤ 0,05 %\t\t\t\t\t\t\t\tPeut provoquer une inflammation intestinale à plus haut dosage\n\t\t\t\t\t\t\t\t\t\t\t\t\tPeuvent altérer la muqueuse intestinale. Sensibles à la chaleur.\n\nTanins\t\t\t\t\t≤ 0,5 %\t\t\t\t\t\t\t\tTolérable si l'appât est destiné à une phase courte d'amorçage\n\t\t\t\t\t\t\t\t\t\t\t\t\tEffet antioxydant à faible dose, mais diminue la digestibilité.\n\nSaponines\t\t\t\t≤ 0,1 %\t\t\t\t\t\t\t\tEn excès, peuvent irriter la muqueuse intestinale\n\t\t\t\t\t\t\t\t\t\t\t\t\tIrritation possible. Potentiel stimulant à très faible dose.\n\nTotal anti-nutriments\t\t✅ ≤ 1,5 % \t\t\t\t\t\t\tdu mix (valeur cible recommandée)\tEn pratique : idéalement entre 0,8 et 1,2 %"
+  },
+  "bannersdefCFC": {
+    "bannerTitle": "Carp Food Concept",
+    "bannerContent": "Solutions innovantes pour l'alimentation des carpes"
+  },
+  "bannersdef": {
+    "bannerTitle": "Concepteur et revendeur d'appât pour la pêche à la Carpe",
+    "bannerContent": "Solutions professionnelles pour la pêche à la carpe"
+  }
+}

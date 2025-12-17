@@ -1,0 +1,60 @@
+# Configuration Kong spécifique pour Supabase Auth
+# Fichier kong.yml à placer dans votre volume Kong
+
+_format_version: "3.0"
+
+services:
+  - name: auth-v1-open
+    url: http://auth:9999
+    routes:
+      - name: auth-v1-open
+        strip_path: true
+        paths:
+          - "/auth/v1/verify"
+          - "/auth/v1/callback"
+          - "/auth/v1/authorize"
+          - "/auth/v1/token"
+          - "/auth/v1/signup"
+          - "/auth/v1/recover"
+          - "/auth/v1/user"
+          - "/auth/v1/logout"
+          - "/auth/v1/settings"
+          - "/auth/v1/reauthenticate"
+          - "/auth/v1/resend"
+          - "/auth/v1/sso"
+          - "/auth/v1/saml"
+          - "/auth/v1/admin"
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+          - PATCH
+
+plugins:
+  - name: cors
+    config:
+      origins:
+        - "*"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+        - PATCH
+      headers:
+        - Origin
+        - X-Requested-With
+        - Content-Type
+        - Accept
+        - Authorization
+        - apikey
+        - x-client-info
+        - x-supabase-api-version
+      exposed_headers:
+        - X-Auth-Token
+      credentials: true
+      max_age: 86400
+      preflight_continue: false

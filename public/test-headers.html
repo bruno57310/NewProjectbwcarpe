@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Supabase Headers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .loading {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #28a745;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #dc3545;
+        }
+        .headers-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .header-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-left: 4px solid #007bff;
+            padding-left: 12px;
+        }
+        .header-name {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        .header-value {
+            color: #333;
+            margin-left: 10px;
+        }
+        .highlight {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            padding: 12px;
+            font-size: 16px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .data-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Test des en-têtes Supabase</h1>
+        <p>Cette page fait une requête vers votre API Supabase et affiche tous les en-têtes HTTP.</p>
+
+        <button onclick="testSupabase()">🚀 Lancer le test</button>
+
+        <div id="status"></div>
+        <div id="headers"></div>
+        <div id="data"></div>
+
+        <div class="info">
+            <h3>📋 Instructions :</h3>
+            <ol>
+                <li>Cliquez sur le bouton "Lancer le test"</li>
+                <li>Ouvrez les DevTools (F12)</li>
+                <li>Allez dans l'onglet <strong>Network/Réseau</strong></li>
+                <li>Cherchez une requête vers <strong>api.bwcarpe.com</strong></li>
+                <li>Cliquez dessus</li>
+                <li>Regardez les <strong>Request Headers</strong> pour trouver <code>x-supabase-api-version</code></li>
+            </ol>
+        </div>
+    </div>
+
+    <script type="module">
+        const SUPABASE_URL = 'https://api.bwcarpe.com';
+        const SUPABASE_ANON_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjIwNjg3NzEzNzgsImlhdCI6MTc1MzIzODU3OCwiaXNzIjoic3VwYWJhc2UiLCJyb2xlIjoiYW5vbiJ9.OrdueEchupFeYux3ruESsvH7WMfjoU-Ivma2mTfHTyo';
+
+        window.testSupabase = async function() {
+            const statusDiv = document.getElementById('status');
+            const headersDiv = document.getElementById('headers');
+            const dataDiv = document.getElementById('data');
+
+            statusDiv.innerHTML = '<div class="status loading">⏳ Requête en cours vers api.bwcarpe.com...</div>';
+            headersDiv.innerHTML = '';
+            dataDiv.innerHTML = '';
+
+            try {
+                // Faire une requête simple vers Supabase
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/flours?select=id,name&limit=5`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    statusDiv.innerHTML = '<div class="status success">✅ Requête réussie ! Vérifiez les en-têtes dans DevTools (F12 → Network)</div>';
+
+                    // Afficher les en-têtes de réponse
+                    let headersHTML = '<h2>En-têtes de RÉPONSE (depuis le serveur) :</h2><div class="headers-box">';
+
+                    response.headers.forEach((value, name) => {
+                        const isApiVersion = name.toLowerCase().includes('api-version') || name.toLowerCase().includes('supabase');
+                        const className = isApiVersion ? 'header-item highlight' : 'header-item';
+                        headersHTML += `<div class="${className}">
+                            <span class="header-name">${name}:</span>
+                            <span class="header-value">${value}</span>
+                        </div>`;
+                    });
+
+                    headersHTML += '</div>';
+
+                    headersHTML += `
+                        <div class="info" style="margin-top: 20px;">
+                            <strong>⚠️ IMPORTANT :</strong> Les en-têtes de <strong>REQUÊTE</strong> (que vous envoyez) ne sont visibles que dans DevTools !
+                            <br><br>
+                            <strong>Comment voir x-supabase-api-version :</strong>
+                            <ol>
+                                <li>Ouvrez DevTools (F12)</li>
+                                <li>Onglet <strong>Network</strong></li>
+                                <li>Trouvez la requête vers <code>flours?select=id,name&limit=5</code></li>
+                                <li>Cliquez dessus</li>
+                                <li>Section <strong>Request Headers</strong></li>
+                                <li>Cherchez <code>x-supabase-api-version</code></li>
+                            </ol>
+                        </div>
+                    `;
+
+                    headersDiv.innerHTML = headersHTML;
+
+                    // Afficher les données reçues
+                    dataDiv.innerHTML = `
+                        <div class="data-info">
+                            <h3>📦 Données reçues (${data.length} farines) :</h3>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `<div class="status error">❌ Erreur ${response.status}: ${response.statusText}</div>`;
+
+                    // Même en cas d'erreur, afficher les en-têtes de réponse
+                    let headersHTML = '<h2>En-têtes de réponse :</h2><div class="headers-box">';
+                    response.headers.forEach((value, name) => {
+                        headersHTML += `<div class="header-item">
+                            <span class="header-name">${name}:</span>
+                            <span class="header-value">${value}</span>
+                        </div>`;
+                    });
+                    headersHTML += '</div>';
+                    headersDiv.innerHTML = headersHTML;
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ Erreur: ${error.message}</div>`;
+                console.error('Erreur complète:', error);
+            }
+        };
+
+        // Lancer automatiquement au chargement
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                window.testSupabase();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

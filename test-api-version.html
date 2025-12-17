@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test x-supabase-api-version</title>
+</head>
+<body>
+    <h1>Test x-supabase-api-version</h1>
+    <button onclick="testHeaders()">Tester les en-têtes</button>
+    <pre id="result"></pre>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+        const supabaseUrl = 'https://api.bwcarpe.com'
+        const supabaseKey = 'YOUR_ANON_KEY' // Remplacez par votre clé
+
+        const supabase = createClient(supabaseUrl, supabaseKey)
+
+        window.testHeaders = async function() {
+            const result = document.getElementById('result')
+
+            // Intercepter fetch pour voir les en-têtes envoyés
+            const originalFetch = window.fetch
+            window.fetch = function(...args) {
+                const [url, options] = args
+                console.log('📤 Request URL:', url)
+                console.log('📤 Request Headers:', options?.headers)
+
+                return originalFetch.apply(this, args).then(async response => {
+                    console.log('📥 Response Headers:')
+                    response.headers.forEach((value, key) => {
+                        console.log(`  ${key}: ${value}`)
+                    })
+
+                    // Afficher dans la page
+                    let output = '=== REQUEST HEADERS ===\n'
+                    if (options?.headers) {
+                        for (let [key, value] of Object.entries(options.headers)) {
+                            output += `${key}: ${value}\n`
+                        }
+                    }
+
+                    output += '\n=== RESPONSE HEADERS ===\n'
+                    response.headers.forEach((value, key) => {
+                        output += `${key}: ${value}\n`
+                    })
+
+                    result.textContent = output
+
+                    return response
+                })
+            }
+
+            // Faire une requête test
+            try {
+                await supabase.from('user_profiles').select('*').limit(1)
+            } catch (error) {
+                result.textContent += '\n\nError: ' + error.message
+            }
+        }
+    </script>
+</body>
+</html>
