@@ -68,11 +68,11 @@ function PrivateCatalog() {
   useEffect(() => {
     if (user) {
       fetchData();
-      fetchSubscription();
+      // fetchSubscription();
     }
   }, [user]);
 
-  const fetchSubscription = async () => {
+  /*const fetchSubscription = async () => {
     try {
       const { data } = await supabase
         .from('subscriptions')
@@ -90,7 +90,7 @@ function PrivateCatalog() {
     } catch (err) {
       console.error('Error fetching subscription:', err);
     }
-  };
+  }; */
 
   const fetchData = async () => {
     try {
