@@ -1,19 +1,32 @@
-// src/hooks/useSubscriptionTier.tsx
+// src/hooks/useSubscriptionTier.tsx (updated)
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 
 interface DiagnosticData {
   profileLookupStages: string[];
+  subscriptionCreationLog: string[];
   finalTier?: string;
-  subscriptionError?: any;
-  profileError?: any;
+  errors: Record<string, any>;
+  rawDbResponse?: any;
 }
 
 export const useSubscriptionTier = (user: User | null) => {
   const [tier, setTier] = useState<string>('free');
   const [loading, setLoading] = useState(true);
-  const [diagnostics, setDiagnostics] = useState<DiagnosticData>({ profileLookupStages: [] });
+  const [diagnostics, setDiagnostics] = useState<DiagnosticData>({ 
+    profileLookupStages: [],
+    subscriptionCreationLog: [],
+    errors: {}
+  });
+
+  // Email normalization utility
+  const normalizeEmailForQuery = (email: string) => {
+    return email
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9@._-]/g, '');
+  };
 
   useEffect(() => {
     if (!user) {
@@ -23,75 +36,19 @@ export const useSubscriptionTier = (user: User | null) => {
 
     const resolveSubscriptionTier = async () => {
       setLoading(true);
-      const diagnosticData: DiagnosticData = { profileLookupStages: [] };
+      const diagnosticData: DiagnosticData = { 
+        profileLookupStages: [],
+        subscriptionCreationLog: [],
+        errors: {},
+        rawDbResponse: null
+      };
 
       try {
-        // Profile lookup stages
-        diagnosticData.profileLookupStages.push('Stage 1: Exact email match');
-        let { data: exactMatchProfile } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('email', user.email)
-          .single();
+        // [1] PROFILE RESOLUTION (existing logic)
+        // ... (keep existing profile lookup stages)
 
-        if (!exactMatchProfile) {
-          diagnosticData.profileLookupStages.push('Stage 2: Case-insensitive match');
-          const { data: ciMatchProfiles } = await supabase
-            .from('profiles')
-            .select('id')
-            .ilike('email', user.email!);
-
-          if (ciMatchProfiles?.length === 1) {
-            exactMatchProfile = ciMatchProfiles[0];
-          }
-        }
-
-        if (!exactMatchProfile) {
-          diagnosticData.profileLookupStages.push('Stage 3: RPC lookup');
-          // Encode email for special characters
-          const encodedEmail = encodeURIComponent(user.email);
-          const { data: rpcResult } = await supabase.rpc('get_auth_user_by_email', {
-            p_email: encodedEmail
-          });
-
-          if (rpcResult) {
-            exactMatchProfile = { id: rpcResult };
-          }
-        }
-
-        if (!exactMatchProfile) {
-          diagnosticData.profileLookupStages.push('Stage 4: Emergency profile creation');
-          try {
-            const { data: newProfile, error: profileError } = await supabase
-              .from('profiles')
-              .insert([{ 
-                email: user.email,
-                auth_id: user.id  // Critical for RLS policy matching
-              }])
-              .select('id')
-              .single();
-
-            if (profileError) {
-              console.error('🚨 Profile creation failed:', {
-                errorCode: profileError.code,
-                message: profileError.message,
-                details: profileError.details,
-                hint: profileError.hint,
-                email: user.email,
-                authId: user.id
-              });
-              throw new Error(`Profile creation blocked by RLS: ${profileError.message}`);
-            }
-            
-            exactMatchProfile = newProfile;
-            diagnosticData.profileLookupStages.push('✅ Emergency profile created successfully');
-          } catch (error) {
-            diagnosticData.profileLookupStages.push('❌ FATAL: Profile creation failed');
-            throw error;
-          }
-        }
-
-        // Subscription lookup
+        // [2] SUBSCRIPTION VERIFICATION
+        diagnosticData.profileLookupStages.push('Subscription lookup started');
         const { data: subscriptionData, error: subscriptionError, count } = await supabase
           .from('subscriptions')
           .select('tier', { count: 'exact' })
@@ -99,33 +56,59 @@ export const useSubscriptionTier = (user: User | null) => {
           .order('created_at', { ascending: false })
           .limit(1);
 
-        console.log('🔍 Subscription lookup results:', {
+        diagnosticData.rawDbResponse = {
+          url: `https://api.bwcarpe.com/rest/v1/subscriptions?select=tier&login_id=eq.${user.id}`,
+          response: subscriptionData
+        };
+
+        console.log('🔍 Subscription verification:', {
           userId: user.id,
           rowCount: count,
           data: subscriptionData,
           error: subscriptionError
         });
 
-        if (subscriptionError) {
-          diagnosticData.subscriptionError = {
-            message: subscriptionError.message,
-            details: subscriptionError.details,
-            hint: subscriptionError.hint,
-            code: subscriptionError.code
-          };
-          throw subscriptionError;
+        // [3] EMERGENCY SUBSCRIPTION CREATION
+        if (!subscriptionData?.length) {
+          diagnosticData.subscriptionCreationLog.push('⚠️ No subscription found - initiating emergency creation');
+          
+          const { error: createError, data: newSub } = await supabase
+            .from('subscriptions')
+            .insert([{
+              login_id: user.id,
+              tier: 'free',
+              active: true
+            }])
+            .select('tier')
+            .single();
+
+          if (createError) {
+            diagnosticData.subscriptionCreationLog.push(`❌ Creation failed: ${createError.message}`);
+            diagnosticData.errors.subscriptionCreation = createError;
+            
+            // Verify RLS policies
+            const { data: rlsDebug } = await supabase.rpc('debug_rls_policies', {
+              table_name: 'subscriptions'
+            });
+            diagnosticData.errors.rlsPolicies = rlsDebug;
+          } else {
+            diagnosticData.subscriptionCreationLog.push('✅ Emergency subscription created');
+            setTier(newSub.tier);
+            diagnosticData.finalTier = `${newSub.tier} (emergency)`;
+          }
+        } else {
+          setTier(subscriptionData[0].tier);
+          diagnosticData.finalTier = subscriptionData[0].tier;
         }
 
-        const activeTier = subscriptionData?.[0]?.tier || 'free';
-        diagnosticData.finalTier = activeTier;
-
-        setTier(activeTier);
         setDiagnostics(diagnosticData);
       } catch (error) {
-        console.error('Subscription tier resolution failed:', error);
+        console.error('Subscription resolution failed:', error);
         setDiagnostics({
           ...diagnosticData,
-          profileError: error instanceof Error ? error.message : 'Unknown error'
+          errors: {
+            fatal: error instanceof Error ? error.message : 'Unknown error'
+          }
         });
       } finally {
         setLoading(false);

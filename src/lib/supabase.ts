@@ -112,10 +112,16 @@ const customFetch: typeof fetch = (input, init) => {
 
   // Only add HTTP Basic Auth to REST API endpoints (/rest/v1/)
   // NEVER apply it to auth endpoints (/auth/v1/) as it breaks authentication
-  if (httpBasicUser && httpBasicPassword && url.includes('/rest/v1/')) {
+  //if (httpBasicUser && httpBasicPassword && url.includes('/rest/v1/')) {
+  //  const credentials = btoa(`${httpBasicUser}:${httpBasicPassword}`);
+  //  headers.set('Authorization', `Basic ${credentials}`);
+  //  console.log('🔐 Adding HTTP Basic Auth to REST API request');
+  //}
+
+  if (httpBasicUser && httpBasicPassword && url.includes('/rest/v1/') && !headers.has('Authorization')) {
     const credentials = btoa(`${httpBasicUser}:${httpBasicPassword}`);
     headers.set('Authorization', `Basic ${credentials}`);
-    console.log('🔐 Adding HTTP Basic Auth to REST API request');
+		console.log('🔐 Adding HTTP Basic Auth to REST API request');
   }
 
   return fetch(input, {
