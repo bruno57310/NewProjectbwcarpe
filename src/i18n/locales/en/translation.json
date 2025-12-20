@@ -45,6 +45,10 @@
   },
   "navigation": {
     "catalogs": "Catalogs",
+		"catalog": "Catalogs",
+		"calculator": "Calculator",
+		"mixCalculator": "Mix Calculator",
+		"combineMixes": "Mix Combiner",
     "publicCatalog": "Public Catalog",
     "enterpriseCatalog": "Enterprise Catalog",
     "privateCatalog": "Private Catalog",

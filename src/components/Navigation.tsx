@@ -53,11 +53,18 @@ function Navigation() {
     <nav className="bg-green-900 text-white shadow-lg relative z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <Fish className="w-8 h-8 text-green-300" />
-            <span className="text-xl font-bold">CarpBait Pro</span>
-          </Link>
+          {/* Logo and Language Switcher */}
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="flex items-center space-x-2">
+              <Fish className="w-8 h-8 text-green-300" />
+              <span className="text-xl font-bold">CarpBait Pro</span>
+            </Link>
+            
+            {/* Language Toggle - Desktop */}
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
@@ -172,6 +179,11 @@ function Navigation() {
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-green-800 shadow-lg">
           <div className="container mx-auto px-4 py-4">
+            {/* Language Toggle - Mobile */}
+            <div className="mb-4 flex justify-center">
+              <LanguageSwitcher />
+            </div>
+
             {/* Catalog Dropdown */}
             <div className="mb-4">
               <button 

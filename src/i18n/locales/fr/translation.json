@@ -45,12 +45,16 @@
   },
   "navigation": {
     "catalogs": "Catalogues",
+		"catalog": "Catalogues",
+		"calculator": "Calculateur",
+		"mixCalculator": "Calculateur de mix",
+		"combineMixes": "Combinaison de Mix",
     "publicCatalog": "Catalogue Public",
     "enterpriseCatalog": "Catalogue Enterprise",
     "privateCatalog": "Catalogue Privé",
     "demoCatalog": "Catalogue Démo",
     "needDonation": "Besoin de dons"
-  },
+	},
   "auth": {
     "login": "Se connecter",
     "register": "S'inscrire",

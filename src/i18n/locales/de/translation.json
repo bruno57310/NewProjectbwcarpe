@@ -45,6 +45,10 @@
   },
   "navigation": {
     "catalogs": "Kataloge",
+		"catalog": "Kataloges",
+		"calculator": "Rechner",
+		"mixCalculator": "Mischungsrechner",
+		"combineMixes": "Mix-Kombinierer",
     "publicCatalog": "Öffentlicher Katalog",
     "enterpriseCatalog": "Enterprise-Katalog",
     "privateCatalog": "Privater Katalog",
