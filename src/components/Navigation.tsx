@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Fish, Calculator, Book, User, CreditCard, Menu, X, Crown, Heart, Lock, Database, History, BarChart2, GitMerge, FileText, Share2 } from 'lucide-react';
+import { Fish, Calculator, Book, User, CreditCard, Menu, X, Crown, Heart, Lock, Database, History, BarChart2, GitMerge, FileText, Share2, Eye, Edit2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showCatalogDropdown, setShowCatalogDropdown] = useState(false);
   const [showCalculatorDropdown, setShowCalculatorDropdown] = useState(false);
+  const [showBlogDropdown, setShowBlogDropdown] = useState(false);
   const { user, signOut, subscriptionTier } = useAuth();
   const { tier: hookTier, loading: tierLoading } = useSubscriptionTier(user);
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Navigation() {
 
   // Tier resolution logic
   const effectiveTier = subscriptionTier || hookTier || 'free';
+  const isAdmin = user?.email === 'bruno_wendling@orange.fr';
 
   // Close mobile menu
   const closeMenu = () => setIsMenuOpen(false);
@@ -114,10 +116,33 @@ function Navigation() {
               </div>
             </div>
 
-            {/* Additional Navigation Items */}
-            <Link to="/blog" className="hover:text-green-300 transition-colors">
-              {t('navigation.blog')}
-            </Link>
+            {/* Blog Dropdown - Fixed hover behavior */}
+            <div className={dropdownWrapperClass}>
+              <button className="flex items-center space-x-1 hover:text-green-300 transition-colors">
+                <FileText className="w-5 h-5" />
+                <span>{t('navigation.blog')}</span>
+              </button>
+              
+              <div className={dropdownContentClass}>
+                <Link
+                  to="/blog"
+                  className="flex items-center space-x-2 px-4 py-2 hover:bg-green-700"
+                >
+                  <Eye className="w-4 h-4" />
+                  <span>{t('navigation.viewBlog')}</span>
+                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/blog-admin"
+                    className="flex items-center space-x-2 px-4 py-2 hover:bg-green-700"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                    <span>{t('navigation.adminBlog')}</span>
+                  </Link>
+                )}
+              </div>
+            </div>
+
             <Link to="/pricing" className="hover:text-green-300 transition-colors">
               {t('navigation.pricing')}
             </Link>
@@ -246,14 +271,41 @@ function Navigation() {
               )}
             </div>
 
-            {/* Additional Mobile Links */}
-            <Link 
-              to="/blog" 
-              className="block py-2 px-4 rounded hover:bg-green-700"
-              onClick={closeMenu}
-            >
-              {t('navigation.blog')}
-            </Link>
+            {/* Blog Dropdown */}
+            <div className="mb-4">
+              <button 
+                onClick={() => setShowBlogDropdown(!showBlogDropdown)}
+                className="flex items-center justify-between w-full py-2"
+              >
+                <span className="flex items-center space-x-2">
+                  <FileText className="w-5 h-5" />
+                  <span>{t('navigation.blog')}</span>
+                </span>
+                {showBlogDropdown ? '▲' : '▼'}
+              </button>
+              
+              {showBlogDropdown && (
+                <div className="ml-4 mt-2 space-y-2">
+                  <Link
+                    to="/blog"
+                    className="block py-2 px-4 rounded hover:bg-green-700"
+                    onClick={closeMenu}
+                  >
+                    {t('navigation.viewBlog')}
+                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/blog-admin"
+                      className="block py-2 px-4 rounded hover:bg-green-700"
+                      onClick={closeMenu}
+                    >
+                      {t('navigation.adminBlog')}
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
+
             <Link 
               to="/pricing" 
               className="block py-2 px-4 rounded hover:bg-green-700"
