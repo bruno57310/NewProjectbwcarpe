@@ -1,11 +1,11 @@
+// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import type { User, Session } from '@supabase/supabase-js';
-import { useSubscriptionTier } from '../hooks/useSubscriptionTier';
 
 type AuthContextType = {
   user: User | null;
-  subscriptionTier: string | null;
+  subscriptionTier: string;
   signUp: (email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -17,22 +17,51 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [subscriptionTier, setSubscriptionTier] = useState<string>('free');
   const [loading, setLoading] = useState(true);
-  const { tier } = useSubscriptionTier(user);
+
+  const fetchSubscriptionTier = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('subscriptions')
+        .select('tier')
+        .eq('login_id', userId)
+        .single();
+
+      return error ? 'free' : data?.tier || 'free';
+    } catch (error) {
+      console.error('Subscription fetch error:', error);
+      return 'free';
+    }
+  };
+
+  const handleAuthState = async (session: Session | null) => {
+    const currentUser = session?.user || null;
+    setUser(currentUser);
+    
+    if (currentUser) {
+      const tier = await fetchSubscriptionTier(currentUser.id);
+      setSubscriptionTier(tier);
+    } else {
+      setSubscriptionTier('free');
+    }
+    
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-      setLoading(false);
+    const initializeAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      await handleAuthState(session);
     };
 
-    checkSession();
+    initializeAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        await handleAuthState(session);
+      }
+    );
 
     return () => subscription.unsubscribe();
   }, []);
@@ -60,7 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const value = {
     user,
-    subscriptionTier: tier,
+    subscriptionTier,
     signUp,
     signIn,
     signOut,

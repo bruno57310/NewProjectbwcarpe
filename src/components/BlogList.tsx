@@ -1,3 +1,4 @@
+// src/components/BlogList.tsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
@@ -53,46 +54,15 @@ function BlogList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
-  const [subscription, setSubscription] = useState<{ tier: string } | null>(null);
-  const [subscriptionLoaded, setSubscriptionLoaded] = useState(false);
-  const { user } = useAuth();
+  const { user, subscriptionTier } = useAuth();
   const { t } = useTranslation();
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
 
   useEffect(() => {
     fetchCategories();
-    if (user) {
-      fetchSubscription();
-    } else {
-      setSubscriptionLoaded(true);
-      fetchPosts();
-    }
-  }, [user, selectedCategory]);
-
-  // Only fetch posts after subscription is loaded
-  useEffect(() => {
-    if (subscriptionLoaded) {
-      fetchPosts();
-    }
-  }, [subscriptionLoaded, searchTerm, selectedCategory, subscription]);
-
-  const fetchSubscription = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('subscriptions')
-        .select('tier')
-        .eq('login_id', user?.id)
-        .maybeSingle();
-      
-      if (error) throw error;
-      setSubscription(data);
-    } catch (err) {
-      console.error('Error fetching subscription:', err);
-    } finally {
-      setSubscriptionLoaded(true);
-    }
-  };
+    fetchPosts();
+  }, [user, selectedCategory, searchTerm, subscriptionTier]);
 
   const fetchCategories = async () => {
     try {
@@ -137,45 +107,40 @@ function BlogList() {
       
       if (error) throw error;
       
-      // Filter posts based on user's subscription level
+      // Enhanced tier-based filtering with debugging
+      console.log('Current subscription tier:', subscriptionTier);
+      console.log('Raw posts before filtering:', data);
+
       let filteredPosts = data || [];
       
-      if (!user) {
-        // Public users can only see public posts
-        filteredPosts = filteredPosts.filter(post => 
-          !post.access_level || post.access_level === 'public'
-        );
-      } else if (subscription) {
-        if (subscription.tier === 'free') {
-          // Free users can only see public posts
-          filteredPosts = filteredPosts.filter(post => 
-            !post.access_level || 
-            post.access_level === 'public'
-          );
-        } else if (subscription.tier === 'pro') {
-          // Pro users can see public and pro posts
-          filteredPosts = filteredPosts.filter(post => 
-            !post.access_level || 
-            post.access_level === 'public' || 
-            post.access_level === 'pro'
-          );
+      // CORRECTED AND VERIFIED ACCESS LEVEL FILTERING
+      filteredPosts = filteredPosts.filter(post => {
+        const accessLevel = post.access_level || 'public';
+        
+        if (!user) {
+          return accessLevel === 'public';
         }
-        // Enterprise users can see all posts (no filtering needed)
-      } else {
-        // Default to public only if subscription status is unknown
-        filteredPosts = filteredPosts.filter(post => 
-          !post.access_level || post.access_level === 'public'
-        );
-      }
+        
+        switch (subscriptionTier) {
+          case 'enterprise':
+            return true; // Access to all levels
+          case 'pro':
+            return accessLevel === 'public' || accessLevel === 'pro';
+          case 'free':
+          default:
+            return accessLevel === 'public';
+        }
+      });
+
+      console.log('Filtered posts after access check:', filteredPosts);
       
       setPosts(filteredPosts);
     } catch (err) {
       console.error('Error fetching posts:', err);
       setError('Error loading blog posts');
       
-      // Implement retry logic with exponential backoff
       if (attempt < maxRetries) {
-        const backoffTime = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s, ...
+        const backoffTime = Math.pow(2, attempt) * 1000;
         console.log(`Retrying in ${backoffTime}ms...`);
         setTimeout(() => {
           setRetryCount(attempt + 1);
@@ -221,19 +186,19 @@ function BlogList() {
       return true;
     }
     
-    if (!user || !subscription) {
+    if (!user || !subscriptionTier) {
       return false;
     }
     
-    if (post.access_level === 'pro') {
-      return subscription.tier === 'pro' || subscription.tier === 'enterprise';
+    // CORRECTED ACCESS CHECK
+    switch (subscriptionTier) {
+      case 'pro':
+        return post.access_level === 'pro' || post.access_level === 'public';
+      case 'enterprise':
+        return true;
+      default:
+        return post.access_level === 'public';
     }
-    
-    if (post.access_level === 'enterprise') {
-      return subscription.tier === 'enterprise';
-    }
-    
-    return false;
   };
 
   if (loading && posts.length === 0) {
@@ -554,7 +519,7 @@ function BlogList() {
                   <p className="text-sm text-gray-600">Exclusive to Enterprise subscribers</p>
                 </div>
               </div>
-              {(!user || subscription?.tier === 'free') && (
+              {(!user || subscriptionTier === 'free') && (
                 <div className="mt-4 pt-4 border-t border-green-100">
                   <Link
                     to="/pricing"
