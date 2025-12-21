@@ -43,6 +43,11 @@
     "reset": "Réinitialiser",
     "refresh": "Actualiser"
   },
+  "errorBoundary": {
+    "title": "Quelque chose s'est mal passé",
+    "description": "Désolé, une erreur inattendue s'est produite. Veuillez recharger la page pour continuer.",
+    "reloadButton": "Recharger la page"
+  },
   "navigation": {
     "catalogs": "Catalogues",
 		"catalog": "Catalogues",

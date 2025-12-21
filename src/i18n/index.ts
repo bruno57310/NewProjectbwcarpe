@@ -2,40 +2,31 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import translationEN from './locales/en/translation.json';
-import translationFR from './locales/fr/translation.json';
-import translationDE from './locales/de/translation.json';
+// Import translation files
+import enTranslations from './locales/en/translation.json';
+import frTranslations from './locales/fr/translation.json';
+import deTranslations from './locales/de/translation.json';
 
-// the translations
+// Define resources structure
 const resources = {
-  en: {
-    translation: translationEN
-  },
-  fr: {
-    translation: translationFR
-  },
-  de: {
-    translation: translationDE
-  }
+  en: { translation: enTranslations },
+  fr: { translation: frTranslations },
+  de: { translation: deTranslations }
 };
 
-i18n
-  // detect user language
+export default i18n
   .use(LanguageDetector)
-  // pass the i18n instance to react-i18next
   .use(initReactI18next)
-  // init i18next
   .init({
     resources,
     fallbackLng: 'fr',
     debug: false,
-    interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
-    },
+    interpolation: { escapeValue: false },
     detection: {
       order: ['localStorage', 'navigator'],
       caches: ['localStorage'],
+    },
+    react: {
+      useSuspense: true
     }
   });
-
-export default i18n;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import LandingPage from './components/LandingPage';
 import FlourCatalog from './components/FlourCatalog';
@@ -51,7 +51,7 @@ function App() {
       currency: "EUR",
       intent: "capture"
     }}>
-      <Router>
+      
         <AuthProvider>
           <div className="min-h-screen flex flex-col bg-gradient-to-b from-stone-50 to-stone-100">
           {/* Background Pattern */}
@@ -288,7 +288,6 @@ function App() {
           </footer>
           </div>
         </AuthProvider>
-      </Router>
     </PayPalScriptProvider>
 
   );

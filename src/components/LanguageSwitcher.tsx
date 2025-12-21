@@ -7,12 +7,15 @@ const LanguageSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
+  // Safe language code extraction
+  const currentLanguage = i18n.language?.substring(0, 2) || 'fr';
+  const resolvedLanguage = i18n.resolvedLanguage?.substring(0, 2) || 'fr';
+
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     setIsOpen(false);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -21,9 +24,7 @@ const LanguageSwitcher: React.FC = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -34,7 +35,7 @@ const LanguageSwitcher: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <Globe className="w-5 h-5" />
-        <span className="uppercase">{i18n.language.substring(0, 2)}</span>
+        <span className="uppercase">{currentLanguage}</span>
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       
@@ -42,19 +43,19 @@ const LanguageSwitcher: React.FC = () => {
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg py-2 z-50">
           <button 
             onClick={() => changeLanguage('fr')} 
-            className={`w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50 ${i18n.language === 'fr' ? 'font-bold text-green-700' : ''}`}
+            className={`w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50 ${resolvedLanguage === 'fr' ? 'font-bold text-green-700' : ''}`}
           >
             Français
           </button>
           <button 
             onClick={() => changeLanguage('en')} 
-            className={`w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50 ${i18n.language === 'en' ? 'font-bold text-green-700' : ''}`}
+            className={`w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50 ${resolvedLanguage === 'en' ? 'font-bold text-green-700' : ''}`}
           >
             English
           </button>
           <button 
             onClick={() => changeLanguage('de')} 
-            className={`w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50 ${i18n.language === 'de' ? 'font-bold text-green-700' : ''}`}
+            className={`w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50 ${resolvedLanguage === 'de' ? 'font-bold text-green-700' : ''}`}
           >
             Deutsch
           </button>

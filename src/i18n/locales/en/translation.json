@@ -43,6 +43,11 @@
     "reset": "Reset",
     "refresh": "Refresh"
   },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "description": "Sorry, an unexpected error occurred. Please reload the page to continue.",
+    "reloadButton": "Reload Page"
+  },
   "navigation": {
     "catalogs": "Catalogs",
 		"catalog": "Catalogs",
