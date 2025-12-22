@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useTranslation, I18nextProvider } from 'react-i18next'; // Added useTranslation import
+import i18n from './i18n';
+import { Routes, Route, useLocation, useSearchParams } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import LandingPage from './components/LandingPage';
 import FlourCatalog from './components/FlourCatalog';
@@ -38,20 +40,27 @@ import FlourCategoryManagement from './components/FlourCategoryManagement';
 import PayPalManagement from './components/PayPalManagement';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
-import { useTranslation } from 'react-i18next';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 function App() {
   const { t } = useTranslation();
   const [isFooterExpanded, setIsFooterExpanded] = useState(false);
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  
+  useEffect(() => {
+    console.log('Current route:', location.pathname);
+    console.log('Search params:', Object.fromEntries(searchParams.entries()));
+  }, [location, searchParams]);
+  
   return (
     <PayPalScriptProvider options={{
       "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test",
       currency: "EUR",
       intent: "capture"
     }}>
-      
+      <I18nextProvider i18n={i18n}> {/* Added provider */}
         <AuthProvider>
           <div className="min-h-screen flex flex-col bg-gradient-to-b from-stone-50 to-stone-100">
           {/* Background Pattern */}
@@ -288,6 +297,7 @@ function App() {
           </footer>
           </div>
         </AuthProvider>
+	  </I18nextProvider>	
     </PayPalScriptProvider>
 
   );

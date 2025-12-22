@@ -14,7 +14,7 @@ const resources = {
   de: { translation: deTranslations }
 };
 
-export default i18n
+i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
@@ -30,3 +30,6 @@ export default i18n
       useSuspense: true
     }
   });
+
+// Export the initialized instance
+export default i18n;

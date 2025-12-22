@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import type { User, Session } from '@supabase/supabase-js';
@@ -11,6 +10,7 @@ type AuthContextType = {
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   loading: boolean;
+  refreshSubscription: () => Promise<void>; // Added refresh capability
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -20,7 +20,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [subscriptionTier, setSubscriptionTier] = useState<string>('free');
   const [loading, setLoading] = useState(true);
 
-  const fetchSubscriptionTier = async (userId: string) => {
+  const fetchSubscriptionTier = async (userId: string): Promise<string> => {
     try {
       const { data, error } = await supabase
         .from('subscriptions')
@@ -28,10 +28,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .eq('login_id', userId)
         .single();
 
-      return error ? 'free' : data?.tier || 'free';
+      if (error) {
+        console.error('Subscription fetch error:', error);
+        return 'free';
+      }
+
+      return data?.tier || 'free';
     } catch (error) {
-      console.error('Subscription fetch error:', error);
+      console.error('Error fetching subscription:', error);
       return 'free';
+    }
+  };
+
+  const refreshSubscription = async () => {
+    if (user?.id) {
+      const tier = await fetchSubscriptionTier(user.id);
+      setSubscriptionTier(tier);
     }
   };
 
@@ -42,6 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (currentUser) {
       const tier = await fetchSubscriptionTier(currentUser.id);
       setSubscriptionTier(tier);
+      console.log(`🔑 Auth state updated - User: ${currentUser.email}, Tier: ${tier}`);
     } else {
       setSubscriptionTier('free');
     }
@@ -94,7 +107,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signIn,
     signOut,
     resetPassword,
-    loading
+    loading,
+    refreshSubscription // Expose refresh method
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Book, Calculator, UserPlus, ChevronRight, Fish, Scale, Brain, Home, Heart, FileText, Download } from 'lucide-react';
 import Banner from './Banner';
 import TextWindow from './TextWindow';
@@ -11,16 +11,23 @@ import { trackPageView } from '../lib/loops';
 function LandingPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    // Ensure clean URL parameters
+    const currentParams = new URLSearchParams(searchParams);
+    if (currentParams.toString()) {
+      const cleanParams = new URLSearchParams();
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Tracking logic remains unchanged
     if (user) {
-      // Track page view
       trackPageView(user.id, 'landing_page');
     } else {
-      // Track anonymous page view
       trackPageView('anonymous', 'landing_page');
     }
-  }, [user]);
+  }, [user, searchParams]);
 
   return (
     <div className="space-y-20 relative">
